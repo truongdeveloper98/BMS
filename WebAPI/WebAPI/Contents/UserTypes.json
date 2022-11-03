@@ -1,0 +1,21 @@
+{
+  "UserTypes": [
+    {
+      "Name": "Intern",
+      "UserTypeId": "1"
+    },
+    {
+      "Name": "Probation",
+      "UserTypeId": "2"
+    },
+    {
+      "Name": "Official",
+      "UserTypeId": "3"
+    },
+    {
+      "Name": "Fresher",
+      "UserTypeId": "4"
+    }
+  ]
+}
+

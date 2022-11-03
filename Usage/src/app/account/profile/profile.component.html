@@ -1,0 +1,72 @@
+<div class="profile">
+  <div class="media d-flex">
+    <div class="media-aside">
+      <img src="{{defaultProfileImage}}" height="80" class="rounded">
+    </div>
+    <div class="media-body">
+      <input hidden type="file" #imageUpload accept=".jpg,.png,.gif,.jpeg" (change)="UploadImage($event)">
+      <button mat-raised-button color="primary" (click)="imageUpload.click()">Change Image</button>
+      <input hidden="hidden" type="file" class="form-control-file" id="__BVID__680">
+      <p class="card-text mt-2">Allowed JPG, GIF, PNG or JPEG. Max size of 800kB</p>
+    </div>
+  </div>
+  <div class="profile-body mt-3">
+    <form [formGroup]="profileForm" (submit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name*</mat-label>
+            <input matInput formControlName="First_Name">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name*</mat-label>
+            <input matInput formControlName="Last_Name">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Email*</mat-label>
+            <input matInput formControlName="Email" readonly>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number*</mat-label>
+            <input matInput formControlName="PhoneNumber">
+            <mat-error *ngIf="profileForm.controls['PhoneNumber'].hasError('minlength')">The phone must be at least 10
+              characters in length</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Birthday</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="Birth_Date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="Address">
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div class="col-12 mt-2" style="position: sticky; bottom: 0px;">
+
+      </div>
+      <div class="float-end">
+
+        <button style="width: 80px; margin-right: 10px" mat-raised-button color="primary"
+          [disabled]="profileForm.invalid">Save</button>
+        <button mat-raised-button style="width: 80px;" color="warn" (click)="onReset()">Reset</button>
+        <!-- <button mat-raised-button color="primary" class="w-80" type="button" (click)="onSubmit()"
+                          [disabled]="service.form.invalid">Save</button>
+                        <button mat-raised-button color="warn" class="w-80" type="button" (click)="onClear()">Reset</button> -->
+      </div>
+    </form>
+  </div>
+</div>

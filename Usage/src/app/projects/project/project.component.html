@@ -1,0 +1,392 @@
+<div class="bs_form-project">
+  <mat-toolbar class="mb-3">
+    <span>{{
+      service.form.controls["id"].value ? "Update Project" : "New Project"
+    }}</span>
+    <span class="fill-remaining-space"></span>
+    <button
+      class="btn-dialog-close"
+      mat-stroked-button
+      (click)="onClose()"
+      tabIndex="-1"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="form" style="margin-bottom: 20px">
+    <form [formGroup]="form">
+      <span style="margin-right: 10px; margin-left: 20px"
+        >Choose Create :
+      </span>
+      <mat-radio-group formControlName="projecttype" [disabled]="isDisabled">
+        <mat-radio-button
+          style="margin-left: 10px"
+          *ngFor="let type of selectCreatePartners"
+          [value]="type.value"
+          >{{ type.name }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </form>
+  </div>
+
+  <form
+    [formGroup]="service.form"
+    class="normal-form project-form"
+    (submit)="onSubmit()"
+  >
+    <div class="row">
+      <div class="col-md-6">
+        <input type="hidden" formControlName="id" />
+        <mat-form-field>
+          <input formControlName="name" matInput placeholder="Name*" />
+          <mat-error>This field is required.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="projectCode"
+            matInput
+            placeholder="Project Code*"
+          />
+          <mat-error>Invalid field is required.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="revenue" matInput placeholder="Revenue*" />
+          <mat-error>Invalid field is required.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a project type*</mat-label>
+          <mat-select
+            disableOptionCentering
+            panelClass="dropbottom"
+            formControlName="projectType"
+            [(value)]="service.selectedProjectType"
+          >
+            <mat-option
+              value="{{ pt.ProjectTypeId }}"
+              *ngFor="let pt of projectTypes"
+              >{{ pt.ProjectTypeName }}</mat-option
+            >
+          </mat-select>
+          <mat-error
+            *ngIf="service.form.controls['projectType'].errors?.required"
+            >You must make a selection</mat-error
+          >
+        </mat-form-field>
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field>
+              <input
+                autocomplete="off"
+                formControlName="startDate"
+                matInput
+                [max]="service.getMaxDate()"
+                [matDatepicker]="start"
+                placeholder="Start Date*"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="start"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #start></mat-datepicker>
+              <mat-error>Invalid field is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6">
+            <mat-form-field>
+              <input
+                autocomplete="off"
+                formControlName="endDate"
+                matInput
+                [min]="service.getMinDate()"
+                [matDatepicker]="end"
+                placeholder="End Date*"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="end"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #end></mat-datepicker>
+              <mat-error>Invalid field is required.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <input
+            formControlName="pmEstimate"
+            matInput
+            placeholder="PM Estimate"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="brseEstimate"
+            matInput
+            placeholder="Brse Estimate"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="comtorEstimate"
+            matInput
+            placeholder="Comtor Estimate"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="testerEstimate"
+            matInput
+            placeholder="Tester Estimate"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="developerEstimate"
+            matInput
+            placeholder="Developer Estimate"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-label class="custom-label">List PMs</mat-label>
+        <ng-select
+          dropdownPosition="top"
+          [items]="users"
+          [multiple]="true"
+          bindLabel="DisplayName"
+          class="mb-2"
+          bindValue="Id"
+          placeholder="Select items"
+          formControlName="listPMs"
+          [(ngModel)]="service.selectedPmId"
+        >
+          <ng-template ng-label-tmp let-item="item" let-clear="clear">
+            <div class="ng-value">
+              <span class="ng-value-label"
+                ><img
+                  [src]="
+                    item.Avatar != null ? item.Avatar : '/assets/img/users.png'
+                  "
+                  width="20px"
+                  height="20px"
+                />
+                {{ item.DisplayName }}</span
+              >
+              <span
+                class="ng-value-icon right"
+                (click)="clear(item)"
+                aria-hidden="true"
+                >×</span
+              >
+            </div>
+          </ng-template>
+
+          <ng-template ng-option-tmp let-item="item">
+            <img
+              [src]="
+                item.Avatar != null ? item.Avatar : '/assets/img/users.png'
+              "
+              width="20px"
+              height="20px"
+            />
+            {{ item.DisplayName }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div *ngIf="createPartner === 1" class="col-md-6">
+        <mat-label class="custom-label">Partner</mat-label>
+        <ng-select
+          dropdownPosition="top"
+          [items]="partner"
+          [multiple]="false"
+          bindLabel="PartnerName"
+          class="mb-2"
+          bindValue="PartnerId"
+          placeholder="Select item"
+          formControlName="partnerId"
+        >
+          <ng-template ng-label-tmp let-item="item" let-clear="clear">
+            <div class="ng-value">
+              <span class="ng-value-label"
+                ><img
+                  [src]="
+                    item.Avatar != null ? item.Avatar : '/assets/img/users.png'
+                  "
+                  width="20px"
+                  height="20px"
+                />
+                {{ item.PartnerName }}</span
+              >
+              <span
+                class="ng-value-icon right"
+                (click)="clear(item)"
+                aria-hidden="true"
+                >×</span
+              >
+            </div>
+          </ng-template>
+
+          <ng-template ng-option-tmp let-item="item">
+            <img
+              [src]="
+                item.Avatar != null ? item.Avatar : '/assets/img/users.png'
+              "
+              width="20px"
+              height="20px"
+            />
+            {{ item.PartnerName }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="col-md-6">
+        <mat-label class="custom-label">List Members</mat-label>
+        <ng-select
+          dropdownPosition="top"
+          [items]="users"
+          [multiple]="true"
+          bindLabel="DisplayName"
+          bindValue="Id"
+          placeholder="Select items"
+          formControlName="listMembers"
+          [(ngModel)]="service.selectedMemberId"
+        >
+          <ng-template ng-label-tmp let-item="item" let-clear="clear">
+            <div class="ng-value">
+              <span class="ng-value-label"
+                ><img
+                  [src]="
+                    item.Avatar != null ? item.Avatar : '/assets/img/users.png'
+                  "
+                  width="20px"
+                  height="20px"
+                />
+                {{ item.DisplayName }}</span
+              >
+              <span
+                class="ng-value-icon right"
+                (click)="clear(item)"
+                aria-hidden="true"
+                >×</span
+              >
+            </div>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            <img
+              [src]="
+                item.Avatar != null ? item.Avatar : '/assets/img/users.png'
+              "
+              width="20px"
+              height="20px"
+            />
+            {{ item.DisplayName }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div *ngIf="createPartner === 1" class="col-md-6">
+        <mat-label class="custom-label">Customer</mat-label>
+        <ng-select
+          dropdownPosition="top"
+          [items]="customer"
+          [multiple]="false"
+          bindLabel="PartnerName"
+          bindValue="PartnerId"
+          placeholder="Select item"
+          formControlName="customerId"
+        >
+          <ng-template ng-label-tmp let-item="item" let-clear="clear">
+            <div class="ng-value">
+              <span class="ng-value-label"
+                ><img
+                  [src]="
+                    item.Avatar != null ? item.Avatar : '/assets/img/users.png'
+                  "
+                  width="20px"
+                  height="20px"
+                />
+                {{ item.PartnerName }}</span
+              >
+              <span
+                class="ng-value-icon right"
+                (click)="clear(item)"
+                aria-hidden="true"
+                >×</span
+              >
+            </div>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            <img
+              [src]="
+                item.Avatar != null ? item.Avatar : '/assets/img/users.png'
+              "
+              width="20px"
+              height="20px"
+            />
+            {{ item.PartnerName }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div *ngIf="createPartner === 1" class="col-12">
+        <mat-form-field class="mt-3">
+          <textarea
+            formControlName="backloglink"
+            rows="3"
+            matInput
+            placeholder="Backlog Link"
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <mat-form-field class="mt-3">
+          <textarea
+            formControlName="descripion"
+            rows="3"
+            matInput
+            placeholder="Descripion"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <div
+    class="button-row float-end"
+    style="
+      position: sticky !important;
+      padding: 10px;
+      bottom: 0px;
+      background: white;
+      width: -webkit-fill-available;
+      text-align: right;
+    "
+  >
+    <button
+      mat-raised-button
+      color="primary"
+      class="btn-submit-project w-80"
+      type="button"
+      (click)="onSubmit()"
+      [disabled]="service.form.invalid"
+    >
+      Save
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="btn-submit-project w-80"
+      type="button"
+      (click)="onClear()"
+    >
+      Reset
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      class="w-80"
+      type="button"
+      (click)="onClose()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

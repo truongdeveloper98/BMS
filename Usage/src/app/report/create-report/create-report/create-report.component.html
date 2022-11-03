@@ -1,0 +1,33 @@
+<div class="bs_create-report">
+  <div class="close">
+    <mat-toolbar class="mb-3">
+      <span>New Reports</span>
+      <span class="fill-remaining-space"></span>
+      <button class="btn-dialog-close" (click)="CloseDialog()" mat-dialog-close mat-stroked-button tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+
+  <div class="form">
+    <form [formGroup]="form">
+      <span style="margin-right: 10px">Report Type :</span>
+      <mat-radio-group formControlName="reporttype">
+        <mat-radio-button *ngFor="let type of selectCreateReports" [value]="type.value">{{ type.name }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </form>
+  </div>
+  <span *ngIf="createReport === 0">
+    <app-form-create-report [reset]="reset" (onSaveChanges)="SaveWorkingReport($event)" [projects]="projects"
+      [positions]="positions" [isSaveChange]="isSaveChange">
+    </app-form-create-report>
+  </span>
+  <span *ngIf="createReport == 1">
+    <app-form-create-report [reset]="reset" [projects]="projects" [positions]="positions" [reportType]="1"
+      (onSaveChanges)="SaveWorkingReport($event)" [isSaveChange]="isSaveChange"></app-form-create-report>
+  </span>
+  <span *ngIf="createReport == 2">
+    <app-create-off-report></app-create-off-report>
+  </span>
+</div>

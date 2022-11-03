@@ -1,0 +1,127 @@
+.dashboard{
+  ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
+    padding: .4em .4em 0 .4em !important;
+  }
+
+  ::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 4px;
+  }
+
+  .title{
+    height: 40px;
+    margin-bottom: 5px;
+    width: -webkit-fill-available;
+    vertical-align: middle;
+     .header-title{
+        float: left;
+        font-weight: 500;
+        color: #636363;
+        padding-right: 1rem !important;
+        font-family: Montserrat;
+        font-size: 23.996px;
+        letter-spacing: 0.14px;
+        line-height: 28.7952px;
+        text-align: left;
+        padding-top: 7px;
+     }
+
+     .date-picker{
+        height: 40px;
+        width: 120px;
+     }
+     .date-picker-fillter{
+        height: 40px;
+        width: 80px;
+     }
+  }
+
+  .dashboard-body{
+      height: calc(100vh - 140px);
+      padding: 5px 20px;
+      overflow-y: scroll;
+      border-top: 15px solid white;
+      border-bottom: 15px solid white;
+      box-shadow: 0 0 12px grey;
+      border-radius: 5px;
+      h2{
+        margin: 20px 0 5px 0;
+        padding: 0 10px;
+        background: #3f51b5;
+        color: #fff;
+        width: 25rem;
+
+      }
+      .w50{
+        max-width: 45vw;
+        white-space: nowrap;
+        overflow-x: hidden;
+      }
+      h3{
+        margin: auto;
+        vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .percent{
+        width: 130px;
+        padding: 0;
+        text-align: right;
+      }
+      .h32{
+        height: 30px;
+      }
+
+      .bd-1{
+        border: 1px solid silver;
+      }
+      .mat-table{
+        .mat-header-cell{
+          position: inherit !important;
+        }
+      }
+      .mat-progress-bar{
+        width: calc(100% - 130px);
+        height: 22px;
+        margin: 5px 0;
+        // opacity: 0.6;
+      }
+
+      .action-cell{
+        cursor: pointer;
+      }
+      .action-cell:hover{
+        color: blue;
+        font-weight: bold;
+      }
+
+      .col-team{
+        position: relative;
+        .center-vert{
+          margin: 0;
+          position: absolute;
+          top: 50%;
+          //left: 50%;
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(0%, -50%);
+        }
+      }
+      .r-180{
+        transform: rotate(-180deg);
+      }
+      .pointer{
+        cursor: pointer;
+      }
+  }
+}
+
+::ng-deep .mat-progress-bar.mat-warn .mat-progress-bar-fill::after {
+  background-color: #fc5473;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: #31c2b3;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background-color: #b2e0dc;
+}

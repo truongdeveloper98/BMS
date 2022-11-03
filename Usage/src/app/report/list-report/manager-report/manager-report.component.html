@@ -1,0 +1,161 @@
+<div class="manager-report">
+  <div class="component_header d-flex" #myHeightHeader>
+    <div class="component_header-title">
+      <div class="page-content-header col-12 p-0">
+        <div class="row breadcrumbs-top" style="margin-left: 0;">
+          <div class="col-12 p-0">
+            <h2 class="content-header-title pr-1 mb-0"> Report </h2>
+            <div class="breadcrumb-wrapper">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/admin/dashboard" class="router-link-active"
+                    target="_self">Home</a></li>
+                <li class="breadcrumb-item active"><span aria-current="location"> Manager Report </span></li>
+                <li class="breadcrumb-item active">
+                  <span aria-current="location">
+                    {{tabSelected===0?"Working Report":tabSelected===1?"OverTime Report":"Off Report"}} </span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="component_header-search">
+      <form [formGroup]="form" class="manager-report-filter">
+        <div class="row m-0">
+          <div class="col-sm-2 p-0">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Department</mat-label>
+              <mat-select disableOptionCentering panelClass="dropbottom" formControlName="department">
+                <mat-option value="" selected>-- All --</mat-option>
+                <mat-option style="position: relative;" [value]="0">BeetSoft</mat-option>
+                <mat-option style="position: relative;" [value]="1">Partner</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-2 p-0">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Project</mat-label>
+              <mat-select disableOptionCentering panelClass="dropbottom" formControlName="projectid" (selectionChange)="getUserOfProject()">
+                <mat-option value="">-- None --</mat-option>
+                <mat-option style="position: relative;" *ngFor="let project of projects" [value]="project.ProjectId">
+                  {{ project.Name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-4 p-0">
+            <mat-form-field appearance="fill" style="padding-bottom: .4em;">
+              <mat-label style="margin: 0 10px">Select User</mat-label>
+              <input type="text" placeholder="Select User" matInput formControlName="displayName"
+                [matAutocomplete]="auto" />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option  style="position: relative;" *ngFor="let user of usersToDisplay" [value]="user.DisplayName">
+                  {{ user.DisplayName }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-2 p-0">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Period</mat-label>
+              <input matInput [matDatepicker]="dp" formControlName="month" />
+              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp startView="year" (yearSelected)="chosenYearHandler($event)"
+                (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-2 p-0">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Status</mat-label>
+              <mat-select disableOptionCentering panelClass="dropbottom" formControlName="status">
+                <mat-option value="" selected>-- All --</mat-option>
+                <mat-option style="position: relative;" [value]="0">Waiting</mat-option>
+                <mat-option style="position: relative;" [value]="1">Approved</mat-option>
+                <mat-option style="position: relative;" [value]="2">Rejected</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <mat-tab-group [@.disabled]="true" mat-stretch-tabs (selectedIndexChange)="onTabClick($event)"
+    class="example-stretched-tabs mat-elevation-z4" [selectedIndex]="tabSelected" color="accent" mat-align-tabs="center"
+    backgroundColor="primary" style="max-height: calc(100vh - 220px);">
+    <mat-tab label="Working Report">
+      <app-list-report-genneric [reportType]="0" [tabSelected]="tabSelected" [manager]="true"
+        *ngIf="workingreports !== undefined" [reports]="workingreports" (onUpdate)="update($event)"
+        (onSendData)="getSelectedReportList($event)">
+      </app-list-report-genneric>
+      <div>
+        <mat-paginator [pageSizeOptions]="paginationService.selectItemsPerPage" [length]="totalAmountOfRecordsWorking"
+          [pageSize]="paginationService.pageSize" (page)="switchPage($event)"
+          class="mat-elevation-z8 mat-paginator-sticky" showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </mat-tab>
+    <mat-tab label="Overtime Report">
+      <app-list-report-genneric [reportType]="1" [tabSelected]="tabSelected" [manager]="true" *ngIf="overtimmereports"
+        [reports]="overtimmereports" (onUpdate)="update($event)" (onSendData)="getSelectedReportList($event)">
+      </app-list-report-genneric>
+      <div>
+        <mat-paginator [pageSizeOptions]="paginationService.selectItemsPerPage" [length]="totalAmountOfRecordsWorking"
+          [pageSize]="paginationService.pageSize" (page)="switchPage($event)"
+          class="mat-elevation-z8 mat-paginator-sticky" showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </mat-tab>
+    <mat-tab label="Off Report">
+      <app-list-report-off *ngIf="offreports" [tabSelected]="tabSelected" [models]="offreports"
+        (onUpdate)="updateReportOff($event)" [manager]="true" (onSendData)="getSelectedReportList($event)">
+      </app-list-report-off>
+      <div>
+        <mat-paginator [pageSizeOptions]="paginationService.selectItemsPerPage" [length]="totalAmountOfRecordsOff"
+          [pageSize]="paginationService.pageSize" (page)="switchPage($event)"
+          class="mat-elevation-z8 mat-paginator-sticky" showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="row m-0">
+    <div class="col-md-12">
+      <div class="export-file mt-2">
+        <button class="float-end" [matMenuTriggerFor]="menu" mat-raised-button color="primary">
+          <mat-icon>file_download</mat-icon>Export
+        </button>
+        <button class="float-end" style="margin-right: 5px;" [matMenuTriggerFor]="actionMenu" mat-raised-button
+          color="primary">
+          Action
+        </button>
+        <button class="float-end" style="margin-right: 5px;" (click)="onCheckReport()" mat-raised-button>
+          <mat-icon>fact_check</mat-icon>Check Reports
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="ExportUser(false)">
+            <mat-icon>people</mat-icon>
+            <span>Export by BeetSoft members</span>
+          </button>
+          <button mat-menu-item (click)="ExportUser(true)">
+            <mat-icon>people</mat-icon>
+            <span>Export by Partner members</span>
+          </button>
+          <button mat-menu-item (click)="ExportProject()">
+            <mat-icon>developer_board</mat-icon>
+            <span>Export by Projects</span>
+          </button>
+        </mat-menu>
+
+        <mat-menu #actionMenu="matMenu">
+          <button mat-menu-item (click)="approveAll()">
+            <span>Approve all</span>
+          </button>
+          <button mat-menu-item (click)="approveSelected()" [disabled]="selectedReports.length === 0">
+            <span>Approve selected items</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>

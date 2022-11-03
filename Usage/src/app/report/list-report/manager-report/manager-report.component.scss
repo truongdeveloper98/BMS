@@ -1,0 +1,132 @@
+.manager-report {
+  ::ng-deep .mat-tab-label .mat-tab-label-content {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  .component_header {
+    justify-content: space-between;
+    flex-direction: row;
+    // padding: 0 12px;
+    align-items: center;
+
+    .component_header-search{
+      display:flex;
+      flex-direction: row-reverse;
+    }
+  }
+
+  .manager-report-filter{
+    align-self: flex-start;
+    ::ng-deep mat-form-field{
+      width: 100%;
+      padding-left: 10px;
+
+      ::ng-deep .mat-form-field-underline{
+        position: initial;
+      }
+
+      ::ng-deep .mat-form-field-wrapper{
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  ::ng-deep mat-ink-bar {
+    display: none;
+  }
+
+  ::ng-deep.mat-tab-label.mat-tab-label-active {
+    color: #fff !important;
+    background-color: #3f51b5;
+    border: 1px solid #3f51b5;
+    opacity: 1;
+  }
+  ::ng-deep .mat-tab-header-pagination {
+    display: none !important;
+  }
+
+  .mat-tab {
+    width: 1000px;
+  }
+  ::ng-deep .mat-tab-label {
+    border-right: 2px solid white;
+    height: 32px;
+    background: #cccccc;
+    color: black !important;
+        font-size: 18px;
+    opacity: 1;
+  }
+  .mat-form-field {
+    width: 200px;
+  }
+
+  .mat-header-row {
+    height: 36px !important;
+  }
+
+  .mat-row,
+  .mat-footer-row {
+    height: 20px !important;
+  }
+
+  .create-member {
+    display: flex;
+  }
+  ::ng-deep .mat-form-field-appearance-outline {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .find {
+    margin-left: 100px;
+    margin-top: 2px;
+  }
+  .nut {
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+
+}
+
+@media (max-width: 1400px) {
+  .component_header {
+    flex-direction: column !important;
+
+    .component_header-title {
+      margin-bottom: 5px;
+      align-self: flex-start;
+    }
+
+    .component_header-search{
+      justify-content:center;
+    }
+  }
+
+  .manager-report-filter{
+    ::ng-deep mat-form-field{
+      padding: 0 10px;
+    }
+  }
+}
+
+.ng-star-inserted{
+    height: fit-content;
+    position: sticky;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+// ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
+//         padding: .4em .4em 0 .4em !important;
+//       }
+
+// ::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+//     padding: 4px;
+// }
+  
+
+  

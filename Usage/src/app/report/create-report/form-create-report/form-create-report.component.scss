@@ -1,0 +1,53 @@
+.bs_form-create-reports {
+  form{
+  }
+
+  .w-80{
+    width: 80px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .checkbox-list section {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .checkbox-list section>* {
+    flex: 1 1 20%;
+  }
+
+  .card {
+    padding: 1.2rem;
+  }
+
+  // Begin style mat-form-field
+  ::ng-deep .mat-form-field-flex>.mat-form-field-infix {
+    padding: 0.7em 0px !important;
+  }
+
+  ::ng-deep .mat-form-field-label-wrapper {
+    top: -1.2em;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.4em) scale(.75);
+    width: 133.33333%;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0.1em 0;
+  }
+
+  ::ng-deep .mat-form-field-subscript-wrapper {
+    margin-top: 0.4em;
+  }
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 1.2em;
+  }
+
+  // End style mat-form-field
+
+}

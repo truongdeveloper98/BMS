@@ -1,0 +1,17 @@
+{
+    "Roles": [
+        { "RoleName": "SysAdmin" },
+        { "RoleName": "Manager" },
+        { "RoleName": "Leader" },
+        { "RoleName": "BA" },
+        { "RoleName": "BrSE" },
+        { "RoleName": "PM" },
+        { "RoleName": "Developer" },
+        { "RoleName": "Tester" },
+        { "RoleName": "Comtor" },
+        { "RoleName": "Sale" },
+        { "RoleName": "HR" },
+        { "RoleName": "Partner" }
+
+    ]
+}

@@ -1,0 +1,29 @@
+.profile {
+  .media-aside {
+    margin-right: 1rem;
+  }
+
+  .rounded {
+    border-radius: 0.357rem !important;
+  }
+
+  .media-body {
+    margin-top: 0.75rem;
+    margin-left: 0.75rem;
+  }
+
+  .card-text {
+    color:#6e6b7b;
+    font-family: Montserrat;
+    font-size: 14px;
+    letter-spacing: 0.14px;
+    line-height: 21px;
+    text-align: left;
+  }
+
+  .profile-body{
+      mat-form-field {
+          width: 100%;
+      }
+  }
+}

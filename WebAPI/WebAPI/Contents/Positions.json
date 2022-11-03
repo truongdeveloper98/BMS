@@ -1,0 +1,18 @@
+{
+  "Positions": [
+    { "PositionName": "Manager" },
+    { "PositionName": "Leader" },
+    { "PositionName": "BA" },
+    { "PositionName": "BrSE" },
+    { "PositionName": "PM" },
+    { "PositionName": "Developer" },
+    { "PositionName": "Tester" },
+    { "PositionName": "Comtor" },
+    { "PositionName": "Admin" },
+    { "PositionName": "Sale" },
+    { "PositionName": "HR" },
+    { "PositionName": "UI/UX" },
+    { "PositionName": "BA" },
+    { "PositionName": "Other" }
+  ]
+}

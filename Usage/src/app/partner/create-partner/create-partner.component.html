@@ -1,0 +1,46 @@
+<div class="bs_create-report">
+  <div class="close">
+    <mat-toolbar class="mb-3">
+      <span *ngIf="createPartner === 0">Create Partner</span>
+      <span *ngIf="createPartner === 1">Create Customer</span>
+      <span class="fill-remaining-space"></span>
+      <button
+        class="btn-dialog-close"
+        (click)="CloseDialog()"
+        mat-dialog-close
+        mat-stroked-button
+        tabIndex="-1"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+</div>
+<div class="form" style="margin-bottom: 20px">
+  <form [formGroup]="form">
+    <span style="margin-right: 10px; margin-left: 20px">Choose Create : </span>
+    <mat-radio-group formControlName="projecttype">
+      <mat-radio-button
+        style="margin-left: 10px"
+        *ngFor="let type of selectCreatePartners"
+        [value]="type.value"
+        >{{ type.name }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </form>
+</div>
+
+<span *ngIf="createPartner === 0">
+  <app-form-partner
+    [CheckCus]="createPartner"
+    (onSaveChanges)="saveChanges($event)"
+  >
+  </app-form-partner>
+</span>
+<span *ngIf="createPartner == 1">
+  <app-form-partner
+    [CheckCus]="createPartner"
+    (onSaveChanges)="saveChanges($event)"
+  >
+  </app-form-partner>
+</span>

@@ -1,0 +1,161 @@
+#bs_header {
+  #signout{
+    color: gray;
+    cursor: pointer;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+  .menu_rotate{
+    transform:rotateY(-180deg);
+  }
+
+  .navbar-brand mat-icon{
+    cursor: pointer;
+  }
+
+  .home-section .home-content {
+    height: 60px;
+    display: flex;
+    align-items: center;
+  }
+
+  .home-section .home-content .bx-menu,
+  .home-section .home-content .text {
+    color: #11101d;
+    font-size: 35px;
+  }
+
+  .home-section .home-content .bx-menu {
+    margin: 0 15px;
+    cursor: pointer;
+  }
+
+  .home-section .home-content .text {
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  .profile-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.5s ease;
+
+    .name-job {
+      width: 170px;
+    }
+  }
+
+  .profile-details .profile-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .profile-details img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 14px 0 12px;
+    transition: all 0.5s ease;
+    box-shadow: 0 4px 8px 0 rgb(34 41 47 / 12%), 0 2px 4px 0 rgb(34 41 47 / 8%);
+  }
+
+  .profile-details .profile_name,
+  .profile-details .job {
+    color: #6e6b7b;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: right;
+    letter-spacing: 0.14px;
+  }
+
+  .profile-details .profile_name {
+    font-weight: 600;
+    font-family: Montserrat;
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0px 0px 0px 2.8px;
+    
+    a{
+      color: #6e6b7b;
+      text-decoration: none;
+    }
+  }
+
+
+  .profile-details .job {
+    font-size: 9.67px;
+  }
+
+  .navbar-header {
+    margin: 5px 5px 0px 5px;
+    border-radius: 0.428rem;
+    padding: 5px 5px;
+    width: calc(100% - 270px);
+    position: fixed;
+    top: 0;
+    left: 260px;
+    z-index: 12;
+    box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+    transition: all 0.5s ease;
+  }
+
+  .sliderbarToggleMain {
+    left: 78px;
+    width: calc(100% - 88px);
+  }
+
+  .navbar-header .navbar-brand {
+    font-size: 1.9rem;
+
+    i {
+      cursor: pointer;
+      color: gray
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .navbar-header {
+      left: 0;
+      width: calc(100% - 10px);
+    }
+
+    .navbar-brand mat-icon{
+      transform:rotateY(-180deg);
+    }
+
+    .sidenav-overlay {
+      position: fixed;
+      top: 0;
+      z-index: 997;
+      display: block;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(34, 41, 47, .5);
+      transition: all .5s ease;
+      opacity: 0;
+      visibility: hidden;
+
+      &.show {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  @media (max-width: 370px) {
+    .profile-details {
+      .name-job {
+        display: none;
+      }
+
+      .profile-content img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}

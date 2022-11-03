@@ -1,0 +1,58 @@
+<div class="bs_create-off-report">
+  <form [formGroup]="form" (submit)="SaveChange($event)">
+    <div class="card mb-0">
+      <div style="display: flex; background: #fff; justify-content: center; margin-bottom: 15px;">
+        <h4 class="dayoff-label">Phép trong năm: {{dayOffData.ThisYearTotal}}</h4>
+        <h4 class="dayoff-label">Phép đã nghỉ: {{dayOffData.Occupied}}</h4>
+        <h4 class="dayoff-label">Phép trong tháng: {{dayOffData.Avaiable}}</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Start Date*</mat-label>
+            <input autocomplete="off" (dateChange)="onDateSelected(form)" [ngxMatDatetimePickerFilter]="dateFilter" formControlName="offdatestart" matInput [max]="maxdate" [ngxMatDatetimePicker]="pickerstart" />
+            <mat-datepicker-toggle matSuffix [for]="$any(pickerstart)"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #pickerstart [defaultTime]="defaultTimeStart" [stepMinute]="15"></ngx-mat-datetime-picker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>End Date*</mat-label>
+            <input autocomplete="off" (dateChange)="onDateSelected(form)" [ngxMatDatetimePickerFilter]="dateFilter" formControlName="offdateend" matInput [min]="mindate" [ngxMatDatetimePicker]="picker" />
+            <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #picker [defaultTime]="defaultTimeEnd" [stepMinute]="15"></ngx-mat-datetime-picker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select disableOptionCentering panelClass="dropbottom" formControlName="offtype">
+              <span *ngFor="let type of offTypes">
+                <mat-option *ngIf="type.Id !== 0 || (type.Id === 0 && nghiPhep === true)" [value]="type.Id">
+                  {{ type.Name }}
+                </mat-option>
+              </span>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Note*</mat-label>
+            <input formControlName="note" matInput />
+            <mat-error>The note is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" style="position: sticky !important;
+                      padding: 10px; bottom: 0px; background: white;
+                      width: -webkit-fill-available;
+                      text-align: right;">
+      <button class="create w-80" mat-flat-button color="primary" [disabled]="form.invalid">
+        Save
+      </button>
+      <button style="margin-left: 10px" class="w-80" mat-dialog-close mat-flat-button color="warn">Cancel</button>
+    </div>
+  </form>
+</div>

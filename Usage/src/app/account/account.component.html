@@ -1,0 +1,32 @@
+<div class="page-content-header mb-3 col-12">
+  <div class="row breadcrumbs-top ">
+    <div class="col-12">
+      <h2 class="content-header-title pr-1 mb-0"> Account Settings </h2>
+      <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="" class="router-link-active" target="_self">Home</a></li>
+          <li class="breadcrumb-item active"><span aria-current="location"> Account Settings </span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-tab-group [@.disabled]="true">
+  <mat-tab label="First">
+    <ng-template mat-tab-label>
+      <mat-icon>person_outline</mat-icon>General
+    </ng-template>
+    <div class="card">
+      <app-profile></app-profile>
+    </div>
+  </mat-tab>
+  <mat-tab label="Second">
+    <ng-template mat-tab-label>
+      <mat-icon>lock</mat-icon>Change Password
+    </ng-template>
+    <div class="card">
+      <app-change-password></app-change-password>
+    </div>
+  </mat-tab>
+</mat-tab-group>

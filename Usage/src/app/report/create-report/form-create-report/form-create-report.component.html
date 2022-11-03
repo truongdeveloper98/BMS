@@ -1,0 +1,109 @@
+<div class="bs_form-create-reports">
+  <form (submit)="saveChanges()" [formGroup]="form">
+    <div class="card mb-2">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Start Date</mat-label>
+            <input autocomplete="off" formControlName="startdate" matInput [max]="maxdate" [matDatepicker]="pickerstart"/>
+            <mat-datepicker-toggle matSuffix [for]="pickerstart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerstart></mat-datepicker>
+            <mat-error>The start date is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>End Date</mat-label>
+            <input autocomplete="off" formControlName="enddate" matInput [min]="mindate" [matDatepicker]="pickerEnd"/>
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+            <mat-error>The end date is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <div class="checkbox-list">
+            <section>
+              <mat-checkbox formControlName="thuhai">Thứ 2</mat-checkbox>
+              <mat-checkbox formControlName="thuba">Thứ 3</mat-checkbox>
+              <mat-checkbox formControlName="thutu">Thứ 4</mat-checkbox>
+              <mat-checkbox formControlName="thunam">Thứ 5</mat-checkbox>
+              <mat-checkbox formControlName="thusau">Thứ 6</mat-checkbox>
+              <span></span>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-0">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Project*</mat-label>
+            <mat-select disableOptionCentering panelClass="dropbottom"  formControlName="projectid">
+              <mat-option *ngFor="let role of projects" [value]="role.ProjectId">
+                {{ role.ProjectName }}
+              </mat-option>
+            </mat-select>
+            <mat-error>The project is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Position*</mat-label>
+            <mat-select disableOptionCentering panelClass="dropbottom"  formControlName="positionid">
+              <mat-option *ngFor="let role of positions" [value]="role.PositionId">
+                {{ role.PositionName }}
+              </mat-option>
+            </mat-select>
+            <mat-error>The position is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6" *ngIf="reportType === 1">
+          <mat-form-field appearance="outline">
+            <mat-label>Rate *</mat-label>
+            <mat-select disableOptionCentering panelClass="dropbottom"  formControlName="ratevalue">
+              <mat-option *ngFor="let role of rate" [value]="role.value">
+                {{ role.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>The rate is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Working Hour*</mat-label>
+            <input formControlName="workinghour" (ngModelChange)="checkInputTime(form)" matInput />
+            <mat-error>The working hour is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Working Type*</mat-label>
+            <mat-select disableOptionCentering panelClass="dropbottom"  formControlName="workingtype">
+              <mat-option *ngFor="let role of workingtypes" [value]="role.value">
+                {{ role.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>The working type is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Note*</mat-label>
+            <input formControlName="note" matInput />
+            <mat-error>The note is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" style="position: sticky !important;
+              padding: 10px; bottom: 0px; background: white;
+              width: -webkit-fill-available;
+              text-align: right;">
+      <button class="create w-80" mat-flat-button color="primary" [disabled]="form.invalid">
+        Save
+      </button>
+      <button style="margin-left: 10px" class="w-80" mat-dialog-close mat-flat-button color="warn">Cancel</button>
+    </div>
+  </form>
+</div>

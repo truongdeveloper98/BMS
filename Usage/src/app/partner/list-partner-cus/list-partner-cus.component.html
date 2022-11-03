@@ -1,0 +1,152 @@
+<div
+  class="example-container mat-elevation-z8"
+  style="max-height: calc(100vh - 135px); margin-top: 5px"
+>
+  <mat-table [dataSource]="dataSource" matSort>
+    <!-- <mat-row *ngFor="let row of dataSource.data" [ngClass]="{'highlight': selectedItem === row}"
+        (click)="selectedItem = row">
+        <mat-cell> {{row.Project_Name}} </mat-cell>
+        <mat-cell [ngClass]="'w-130'" *matCellDef="let element"> {{element.Project_Code}} </mat-cell>
+      </mat-row> -->
+
+    <ng-container matColumnDef="Customername">
+      <mat-header-cell
+        style="max-width: 300px"
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        <span *ngIf="checkCus === 0">Partner Name</span>
+        <span *ngIf="checkCus === 1">Customer Name</span>
+      </mat-header-cell>
+      <mat-cell style="max-width: 300px" *matCellDef="let element">
+        {{ element.PartnerName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Address">
+      <mat-header-cell
+        style="max-width: 300px"
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Address
+      </mat-header-cell>
+      <mat-cell style="max-width: 300px" *matCellDef="let element">
+        {{ element.Address }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Website">
+      <mat-header-cell
+        style="max-width: 300px"
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Website
+      </mat-header-cell>
+      <mat-cell style="max-width: 300px" *matCellDef="let element">
+        {{ element.Website }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Vote">
+      <mat-header-cell
+        style="max-width: 150px"
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Vote
+      </mat-header-cell>
+      <mat-cell style="max-width: 150px" *matCellDef="let element">
+        <app-rating
+          [selectedRate]="element.Vote"
+          [rateInit]="element.Vote"
+        ></app-rating>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Note">
+      <mat-header-cell
+        style="max-width: 400px"
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Note
+      </mat-header-cell>
+      <mat-cell style="max-width: 400px" *matCellDef="let element">
+        {{ element.Note }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="isdelete">
+      <mat-header-cell *matHeaderCellDef [ngClass]="'w-80'">
+        Status
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="'w-80'">
+        <span
+          *ngIf="element.IsDelete === false"
+          class="badge rounded-pill bg-success"
+          >Enabled</span
+        >
+        <span
+          *ngIf="element.IsDelete === true"
+          class="badge rounded-pill bg-danger"
+          >Disabled</span
+        >
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions" stickyEnd>
+      <mat-header-cell
+        *matHeaderCellDef
+        [ngClass]="'w-80'"
+        class="action-column"
+      >
+        <div class="border-column-sticky"></div>
+        Actions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" [ngClass]="'w-80'" class="action-column">
+        <div class="border-column-sticky"></div>
+        <mat-icon (click)="onEdit(row.PartnerId)" color="primary"
+          >edit</mat-icon
+        >
+        <mat-icon
+          style="font-weight: bold"
+          (click)="changeStatus(row.PartnerId, row.IsDelete)"
+          color="warn"
+        >
+          power_settings_new
+        </mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="9">
+        Loading data ...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="9">
+        No Data.
+      </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row
+      *matHeaderRowDef="columnsToDisplay; sticky: true"
+    ></mat-header-row>
+    <mat-row
+      *matRowDef="let row; columns: columnsToDisplay"
+      [ngClass]="{
+        highlight: selectedItem === row,
+        disabled: row.Status === 1
+      }"
+      (click)="selectedItem = row"
+    >
+    </mat-row>
+
+    <mat-footer-row
+      *matFooterRowDef="['loading']"
+      [ngClass]="{ hide: dataSource != null }"
+    ></mat-footer-row>
+  </mat-table>
+</div>

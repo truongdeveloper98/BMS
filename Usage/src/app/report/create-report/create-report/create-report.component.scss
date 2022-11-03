@@ -1,0 +1,48 @@
+.bs_create-report {
+
+  .mat-toolbar{
+    background: #3f51b5;
+    color: white;
+    font-weight: 500;
+    font-size: 22px;
+    
+  }
+
+  .close {
+    // cursor: pointer;
+    display: flex;
+position: sticky;
+    top: 0px;
+    z-index: 5;
+    .fill-remaining-space {
+      flex: 1 1 auto;
+    }
+
+    .btn-dialog-close {
+      width: 45px;
+      min-width: 0px !important;
+      height: 40px;
+      padding: 0 !important;
+      border: none !important;
+      margin-top: 0;
+    }
+  }
+
+  .nut {
+    margin-left: 590px;
+    margin-top: 10px;
+  }
+
+  .form {
+    margin: 10px 0px;
+    padding: 0 12px 12px 12px;
+  }
+
+  .mat-radio-button {
+    margin-right: 10px;
+  }
+
+  .an {
+    display: none;
+  }
+}

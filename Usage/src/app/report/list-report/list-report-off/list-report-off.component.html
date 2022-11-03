@@ -1,0 +1,182 @@
+<div class="mat-elevation-z8 list-report-off">
+  <form [formGroup]="form" autocomplete="off">
+    <ng-container formArrayName="items">
+      <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8" matSort
+        (matSortChange)="sortData($event, form)">
+        <!-- Name Column -->
+        <ng-container matColumnDef="startdate">
+          <mat-header-cell *matHeaderCellDef class="start">Start Date</mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="start" [formGroup]="element">
+            <span *ngIf="form.get('items')?.value[i] !== undefined">
+              <span *ngIf="form.get('items')?.value[i].isEditable === true">
+                {{
+                form.get("items")?.value[i].offdatestart
+                | date: 'dd/MM/yyyy, HH:mm'
+                }}
+              </span>
+              <span *ngIf="form.get('items')?.value[i].isEditable === false">
+                <mat-form-field style="width: 200px" appearance="legacy">
+                  <input autocomplete="off" (dateChange)="onDateSelected(form, i)" formControlName="offdatestart" [max]="maxdate" matInput [ngxMatDatetimePicker]="pickerstart"
+                    [ngxMatDatetimePickerFilter]="dateFilter"/>
+                  <mat-datepicker-toggle matSuffix [for]="$any(pickerstart)"></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #pickerstart [defaultTime]="defaultTimeStart" [stepMinute]="15"></ngx-mat-datetime-picker>
+                </mat-form-field>
+              </span>
+            </span>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="enddate">
+          <mat-header-cell *matHeaderCellDef class="start">End Date</mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="start" [formGroup]="element">
+            <span *ngIf="form.get('items')?.value[i] !== undefined">
+              <span *ngIf="form.get('items')?.value[i].isEditable === true">
+                {{
+                form.get("items")?.value[i].offdateend
+                | date:'dd/MM/yyyy, HH:mm'
+                }}
+              </span>
+              <span *ngIf="form.get('items')?.value[i].isEditable === false">
+                <mat-form-field style="width: 200px" appearance="legacy">
+                  
+                  <input autocomplete="off" (dateChange)="onDateSelected(form, i)" formControlName="offdateend" [min]="mindate" matInput [ngxMatDatetimePicker]="picker"
+                    [ngxMatDatetimePickerFilter]="dateFilter"/>
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #picker [defaultTime]="defaultTimeEnd" [stepMinute]="15"></ngx-mat-datetime-picker>
+                </mat-form-field>
+              </span>
+            </span>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="displayname">
+          <mat-header-cell *matHeaderCellDef width="230px" class="displayname" mat-sort-header>
+            Member
+          </mat-header-cell>
+          <mat-cell width="230px" *matCellDef="let element; let i = index" class="displayname" [formGroup]="element">
+            <span>
+              {{ form.get("items")?.value[i].displayname }}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="note">
+          <mat-header-cell *matHeaderCellDef class="note">Note</mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="note" [formGroup]="element">
+            <span *ngIf="form.get('items')?.value[i] !== undefined" style="width: -webkit-fill-available;">
+              <span *ngIf="form.get('items')?.value[i].isEditable === true">
+                {{ form.get("items")?.value[i].note }}
+              </span>
+              <span *ngIf="form.get('items')?.value[i].isEditable === false" style="width: -webkit-fill-available;">
+                <mat-form-field style="width: 350px" appearance="legacy" style="width: -webkit-fill-available;">
+                  <input matInput type="text" formControlName="note" style="width: -webkit-fill-available;"
+                    [readonly]="form.get('items')?.value[i].isEditable" />
+                </mat-form-field>
+              </span>
+            </span>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="offtype">
+          <mat-header-cell *matHeaderCellDef class="type" mat-sort-header>Type</mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="type" [formGroup]="element">
+            <span *ngIf="form.get('items')?.value[i] !== undefined">
+              <span *ngIf="form.get('items')?.value[i].isEditable === true">
+                <span *ngFor="let type of offTypes">
+                  <span *ngIf="form.get('items')?.value[i].offtype === type.Id">{{type.Name}}</span>
+                </span>
+              </span>
+              <span *ngIf="form.get('items')?.value[i].isEditable === false">
+                <mat-form-field appearance="legacy">
+                  <mat-select disableOptionCentering panelClass="dropbottom" formControlName="offtype">
+                    <span *ngFor="let type of offTypes">
+                      <mat-option *ngIf="type.Id !== 0 || (type.Id === 0 && nghiPhep === true)" [value]="type.Id">
+                        {{ type.Name }}
+                      </mat-option>
+                    </span>
+                    
+                  </mat-select>
+                </mat-form-field>
+              </span>
+            </span>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef class="status" mat-sort-header>Status</mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="status" [formGroup]="element" [formGroupName]="i">
+            <div *ngIf="form.get('items')?.value[i].isEditable === true">
+              <span *ngIf="form.get('items')?.value[i].status === 0" class="badge rounded-pill bg-warning">
+                Waitting
+              </span>
+              <span *ngIf="form.get('items')?.value[i].status === 1" class="badge rounded-pill bg-success">
+                Approved
+              </span>
+              <span *ngIf="form.get('items')?.value[i].status === 2" class="badge rounded-pill bg-danger"
+                >
+                <span class="mess-deny">
+                  Rejected
+                  <mat-icon *ngIf="form.get('items')?.value[i].describe !== null" [matMenuTriggerFor]="menu" (click)="ViewDes(form, i)" class="fb-deny">feedback</mat-icon>
+                </span>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>{{ thongbao }}</button>
+                </mat-menu>
+              </span>
+            </div>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions" stickyEnd>
+          <mat-header-cell *matHeaderCellDef class="action">
+            <div class="border-column-sticky"></div>
+            Action
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="action" [formGroup]="element">
+            <div class="border-column-sticky"></div>
+            <span *ngIf="form.get('items')?.value[i] !== undefined">
+              <button mat-icon-button [disabled]="getValidity(form, i)"
+                class="material-icons btn-save-row app-toolbar-menu save-button" matTooltip="Save Changes"
+                (click)="SaveReport(form, i, element)" *ngIf="!form.get('items')?.value[i].isEditable" color="primary">
+                <mat-icon>check_circle</mat-icon>
+              </button>
+
+              <mat-icon class="material-icons app-toolbar-menu cancel-button" matTooltip="Cancel Changes" color="warn"
+                (click)="Cancel(form, i)" (click)="clickedRows.delete(element)"
+                *ngIf="!form.get('items')?.value[i].isEditable">cancel</mat-icon>
+
+              <mat-icon class="material-icons app-toolbar-menu save-button" *ngIf="manager===false && 
+                  userID === form.get('items')?.value[i].userId &&
+                  form.get('items')?.value[i].isEditable &&
+                  form.get('items')?.value[i].status !== 1
+                " matTooltip="Edit" color="primary" (click)="EditReport(form, i)" (click)="clickedRows.add(element)">
+                edit</mat-icon>
+
+              <mat-icon class="material-icons app-toolbar-menu delete-button" *ngIf="manager===false && 
+                  userID === form.get('items')?.value[i].userId &&
+                  form.get('items')?.value[i].isEditable &&
+                  form.get('items')?.value[i].status !== 1
+                " (click)="deleteReport(form.get('items')?.value[i].reportid)" matTooltip="Delete" color="warn">delete
+              </mat-icon>
+              <mat-icon class="material-icons app-toolbar-menu save-button" *ngIf="
+                  manager === true && form.get('items')?.value[i].isEditable
+                " (click)="approveReport(form, i)" matTooltip="Edit" color="primary">assignment_turned_in</mat-icon>
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></mat-header-row>
+        <mat-row [class.row-is-clicked]="clickedRows.has(row)"
+          *matRowDef="let row; let i = index; columns: columnsToDisplay"
+          [ngClass]="{'r-hlgt': selectedReports.includes(form.get('items')?.value[i].reportid)}"
+          (click)="selectReport(form.get('items')?.value[i].reportid, $event)"></mat-row>
+        <tr class="mat-row" *matNoDataRow [ngClass]="{'empty-dataset__hidden': isLoading}" style="text-align: center">
+          <td class="mat-cell" *ngIf="manager === false" colspan="6">
+            No data.
+          </td>
+          <td class="mat-cell" *ngIf="manager === true" colspan="7">
+            No data.
+          </td>
+        </tr>
+        <!-- Row shown when there is no matching data. -->
+      </mat-table>
+    </ng-container>
+  </form>
+  <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+    <mat-spinner strokeWidth="3" [diameter]="50"></mat-spinner>
+  </mat-card>
+</div>

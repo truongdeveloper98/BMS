@@ -1,0 +1,26 @@
+<div class="col-md-12">
+    <div class="d-flex header">
+        <h2>Pending list: {{title}}</h2>
+        <button class="btn-dialog-close" mat-dialog-close mat-stroked-button (click)="onClose()">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <div style="padding: 10px">
+        <table id="table-data" class="table">
+            <tr class="header-row">
+                <th class="cell">Display name</th>
+                <th class="cell">Email</th>
+                <th class="cell">Pending from</th>
+                <th class="cell">Effort</th>
+            </tr>
+            <tr *ngFor="let mem of members" class="body-row"> 
+                <td class="cell">{{mem.DisplayName}}</td>
+                <td class="cell">{{mem.Email}}</td>
+                <td class="cell">{{mem.PendingStart | date: 'dd/MM/yyyy'}}</td>
+                <td class="cell">{{mem.EffortFree}}%</td>
+            </tr>
+        </table>
+    </div>
+    
+    
+</div>

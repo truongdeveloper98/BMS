@@ -1,0 +1,56 @@
+.bs_form-recruitment{
+  .w-80{
+    width: 80px;
+  }
+
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+
+    .mat-toolbar{
+      background: #3f51b5;
+      color: white;
+      font-weight: 500;
+      font-size: 22px;
+      position: sticky !IMPORTANT;
+      top: 0px;
+      z-index: 9999;
+    }
+
+  mat-form-field{
+    display:block;
+  }
+
+  .custom-label{
+    font-size:10.5px;
+    line-height:11.8125px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  .btn-dialog-close{
+    width: 45px;
+    min-width: 0px !important;
+    height: 40px;
+    padding: 0 !important;
+    border:none !important;
+  }
+
+  .fill-remaining-space {
+    flex: 1 1 auto;
+  }
+
+  .btn-submit-project{
+    margin-right: 10px;
+  }
+
+  .project-form{
+    padding: 0 12px 12px 12px;
+    top: 5px;
+    ::ng-deep .mat-form-field-flex{
+      padding: 0 !important;
+      background-color: #fff !important;
+      height: 39.2px !important;
+    }
+  }
+}

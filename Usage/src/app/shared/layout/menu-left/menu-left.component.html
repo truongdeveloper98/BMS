@@ -1,0 +1,281 @@
+<div id="bs_menu-left">
+  <div
+    class="sidebar"
+    [ngClass]="{ close: childMessage, siderbarOpenMobile: childMessage }"
+  >
+    <div class="navbar-header-sidebar expanded">
+      <ul class="nav navbar-nav flex-row">
+        <li class="nav-item mr-auto">
+          <a
+            routerLink="/admin/dashboard"
+            class="navbar-brand router-link-active"
+            target="_self"
+          >
+            <span class="brand-logo">
+              <img src="/assets/img/logo.png" alt="logo" class="" />
+            </span>
+            <h2 class="brand-text">Beetsoft's</h2>
+          </a>
+        </li>
+        <li class="nav-item nav-toggle">
+          <a target="_self" class="nav-link modern-nav-toggle">
+            <mat-icon (click)="menuLeftClose()">close</mat-icon>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <ul class="nav-links">
+      <li class="active" *ngIf="roleName !='Partner'">
+        <div class="iocn-link">
+          <a routerLink="/admin/dashboard">
+            <mat-icon>dashboard</mat-icon>
+            <span class="link_name">Dashboard</span>
+          </a>
+        </div>
+        <ul class="sub-menu collapse blank">
+          <li><a class="link_name">Dashboard</a></li>
+        </ul>
+      </li>
+      <li *ngIf="roleName === 'Manager' || roleName === 'SysAdmin'">
+        <div
+          class="iocn-link"
+          role="button"
+          [ngClass]="{ collapsed: collapseMenu[0] === true }"
+          (click)="collapseToggle(0)"
+        >
+          <a>
+            <mat-icon>settings</mat-icon>
+            <span class="link_name">Setting</span>
+          </a>
+          <mat-icon [ngClass]="{ 'r-180': collapseMenu[0] === false }"
+            >expand_more</mat-icon
+          >
+        </div>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: collapseMenu[0] === false }"
+        >
+          <li><a class="link_name">Setting</a></li>
+          <!-- <li><a>Holliday</a></li> -->
+          <li><a routerLink="/admin/salaries">Salary</a></li>
+          <!-- <li><a>General Costs</a></li> -->
+        </ul>
+      </li>
+      <li *ngIf="roleName === 'Manager' || roleName === 'SysAdmin'">
+        <div
+          class="iocn-link"
+          role="button"
+          [ngClass]="{ collapsed: collapseMenu[1] === true }"
+          (click)="collapseToggle(1)"
+        >
+          <a>
+            <mat-icon>people</mat-icon>
+            <span class="link_name">Members</span>
+          </a>
+          <mat-icon [ngClass]="{ 'r-180': collapseMenu[1] === false }"
+            >expand_more</mat-icon
+          >
+        </div>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: collapseMenu[1] === false }"
+        >
+          <li><a class="link_name">Members</a></li>
+          <!-- <li><a>Members's Usages</a></li> -->
+          <li>
+            <a routerLink="/admin/users">List Members</a>
+          </li>          
+        </ul>
+      </li>
+      <li *ngIf="roleName === 'Manager' || roleName === 'SysAdmin'">
+        <div
+          class="iocn-link"
+          role="button"
+          [ngClass]="{ collapsed: collapseMenu[2] === true }"
+          (click)="collapseToggle(2)"
+        >
+          <a>
+            <mat-icon>assignment_ind</mat-icon>
+            <span class="link_name">Partners</span>
+          </a>
+          <mat-icon [ngClass]="{ 'r-180': collapseMenu[2] === false }"
+            >expand_more</mat-icon
+          >
+        </div>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: collapseMenu[2] === false }"
+        >
+          <!-- <li><a>Partners's Usages</a></li> -->
+          <li>
+            <a routerLink="/admin/partners">List Partners</a>
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="roleName === 'Manager' || roleName === 'SysAdmin' || isPm > 0">
+        <div
+          class="iocn-link"
+          role="button"
+          [ngClass]="{ collapsed: collapseMenu[3] === true }"
+          (click)="collapseToggle(3)"
+        >
+          <a>
+            <mat-icon>developer_board</mat-icon>
+            <span class="link_name">Project</span>
+          </a>
+          <mat-icon [ngClass]="{ 'r-180': collapseMenu[3] === false }"
+            >expand_more</mat-icon
+          >
+        </div>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: collapseMenu[3] === false }"
+        >
+          <li><a class="link_name">Project</a></li>
+          <li
+            *ngIf="
+              roleName === 'Manager' || roleName === 'SysAdmin' || isPm > 0
+            "
+          >
+            <a routerLink="/admin/projects">Manage Project</a>
+          </li>
+          <!-- <li *ngIf="roleName === 'Manager' || roleName === 'SysAdmin'">
+            <a>Manage Project's Cost</a>
+          </li> -->
+        </ul>
+      </li>
+      <li *ngIf="!reportForbidden">
+        <div
+          class="iocn-link"
+          role="button"
+          [ngClass]="{ collapsed: collapseMenu[4] === true }"
+          (click)="collapseToggle(4)"
+        >
+          <a>
+            <mat-icon>task</mat-icon>
+            <span class="link_name">Report</span>
+          </a>
+          <mat-icon [ngClass]="{ 'r-180': collapseMenu[4] === false }"
+            >expand_more</mat-icon
+          >
+        </div>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: collapseMenu[4] === false }"
+        >
+          <li
+            *ngIf="
+              roleName === 'Manager' || roleName === 'SysAdmin' || isPm > 0"
+          >
+            <a routerLink="/admin/manager-reports">Manage Report</a>
+          </li>
+          <li><a routerLink="/admin/today-reports">Today's Reports</a></li>
+          <li><a routerLink="/admin/reports">My Reports</a></li>
+        </ul>
+      </li>
+
+      <li  *ngIf="roleName === 'Manager' || roleName === 'HR' || roleName === 'SysAdmin'">
+        <div
+          class="iocn-link"
+          role="button"
+          [ngClass]="{ collapsed: collapseMenu[5] === true }"
+          (click)="collapseToggle(5)"
+        >
+          <a>
+            <mat-icon> message </mat-icon>
+            <span class="link_name">Recruitment</span>
+          </a>
+          <mat-icon [ngClass]="{ 'r-180': collapseMenu[5] === false }"
+            >expand_more</mat-icon
+          >
+        </div>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: collapseMenu[5] === false }"
+        >
+          <li>
+            <a routerLink="/admin/recruitments">Manager Recruitment</a>
+          </li>
+          <li>
+            <a routerLink="/admin/usersonboard">Members Onboard</a>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="roleName !='Partner'">
+        <div class="iocn-link">
+          <a routerLink="/admin/account-settings">
+            <mat-icon>badge</mat-icon>
+            <span class="link_name">Account Settings</span>
+          </a>
+        </div>
+        <ul class="sub-menu collapse blank">
+          <li>
+            <a class="link_name" routerLink="/admin/account-settings"
+              >Account Settings</a
+            >
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="roleName !='Partner'">
+        <div
+          class="iocn-link"
+          (mouseenter)="editEnable(0, true)"
+          (mouseleave)="editEnable(0, false)"
+        >
+          <a>
+            <mat-icon *ngIf="!editEnableArr[0]">folder_open</mat-icon>
+            <mat-icon
+              *ngIf="
+                (roleName === 'Manager' || roleName === 'SysAdmin') &&
+                editEnableArr[0]
+              "
+              (click)="editDocumentLink(0)"
+              style="color: #3f51b5"
+              >edit</mat-icon
+            >
+            <span
+              ><a (click)="openDocument(docList[0].Link)" class="link_name"
+                >Documentation</a
+              ></span
+            >
+          </a>
+        </div>
+        <ul class="sub-menu collapse blank">
+          <li><a class="link_name">Documentation</a></li>
+        </ul>
+      </li>
+
+      <li  *ngIf="roleName !='Partner'">
+        <div
+          class="iocn-link"
+          (mouseenter)="editEnable(1, true)"
+          (mouseleave)="editEnable(1, false)"
+        >
+          <a>
+            <mat-icon *ngIf="!editEnableArr[1]">business_center</mat-icon>
+            <mat-icon
+              *ngIf="
+                (roleName === 'Manager' || roleName === 'SysAdmin') &&
+                editEnableArr[1]
+              "
+              (click)="editDocumentLink(1)"
+              style="color: #3f51b5"
+              >edit</mat-icon
+            >
+            <span
+              ><a (click)="openDocument(docList[1].Link)" class="link_name"
+                >Beetsoft structrue</a
+              ></span
+            >
+          </a>
+        </div>
+        <ul class="sub-menu collapse blank">
+          <li><a class="link_name">Beetsoft Structrue</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

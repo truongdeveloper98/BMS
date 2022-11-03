@@ -1,0 +1,217 @@
+.list-report-generic {
+  ::ng-deep a.mat-focus-indicator.action.mat-flat-button.mat-button-base {
+    margin: 0;
+    padding: 0;
+    width: 40px;
+    cursor: default;
+  }
+
+  mat-table {
+    min-width: 1200px;
+    cursor: default;
+
+    mat-header-row {
+      min-height: 0;
+      height: 32px;
+    }
+    mat-row, mat-footer-row{
+      min-height: 24px;
+      height: auto !important;
+      align-items: stretch;
+    }
+
+    mat-cell, mat-header-cell{
+      padding: 0 10px;
+    }
+
+    .action-column {
+      justify-content: center;
+      background: #fff;
+      max-width: 90px;
+      padding: 0px;
+    }
+    mat-icon {
+      font-size: 20px;
+      vertical-align: middle;
+      line-height: 24px;
+      margin: 0 2px;
+    }
+    
+    .empty-dataset__hidden{
+      display: none;
+    }
+
+
+    .badge{
+      width: 63px;
+      height:18px;
+    }
+    .mess-deny{
+       position: relative;
+      .fb-deny{
+        position: absolute;
+        color: #bab2b2;
+        top: -4px;
+        right: -26px;
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        margin: 0;
+      }
+    }
+
+    .border-column-sticky {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: #908f8f29;
+      box-shadow: -2px -2px 2px 1px #908f8f29;
+    }
+
+    .mat-row.row-is-clicked {
+      background: #8bc7ff;
+    }
+
+    .mat-header-cell:first-of-type{
+      padding-left: 15px;
+    }
+  
+  .mat-cell:first-of-type{
+    padding-left: 15px;
+  }
+  
+    .btn-save-row.mat-icon-button {
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      margin-right: 5px !important;
+    }
+
+    .r-hlgt{
+      background: #adceff !important;   
+      // font-weight: bold;
+    }
+  }
+
+  mat-icon {
+    cursor: pointer;
+  }
+
+  .example-container {
+    overflow: auto;
+    height: 500px;
+    max-width: 100%;
+  }
+
+  .add {
+    margin-left: 1260px;
+  }
+
+  .add a {
+    margin: 0;
+    padding: 0;
+  }
+
+  ::ng-deep .type {
+    max-width: 70px;
+  }
+
+  ::ng-deep .newreport {
+    font-size: 30px;
+  }
+
+  ::ng-deep .displayname {
+    max-width: 220px;
+    // white-space: nowrap;
+  }
+
+  ::ng-deep .project {
+    min-width: 100px;
+    max-width: 250px;
+  }
+
+  ::ng-deep .position {
+    max-width: 100px;
+  }
+
+  ::ng-deep .status {
+    max-width: 90px;
+    min-width: 90px;
+  }
+  ::ng-deep .description {
+    min-width: 20%;
+  }
+
+  ::ng-deep .time {
+    max-width: 70px;
+    min-width: 70px;
+    text-align: left;
+  }
+
+  ::ng-deep .rate {
+    max-width: 60px;
+  }
+  .button-wait {
+    border-radius: 8px;
+    background-color: orange;
+    border-color: white;
+    color: white;
+  }
+  .button-view {
+    border-radius: 8px;
+    background-color: white;
+    border-color: white;
+  }
+  .button-success {
+    border-radius: 8px;
+    background-color: #009933;
+    border-color: white;
+    color: white;
+  }
+  .button-fail {
+    border-radius: 8px;
+    background-color: #ff3300;
+    border-color: white;
+    color: white;
+  }
+  ::ng-deep .day {
+    max-width: 150px;
+  }
+
+  ::ng-deep .action {
+    // width: 95px;
+    text-align: center;
+    padding: 0px;
+    background: #fff;
+  }
+
+  a {
+    color: black;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    height: 35px;
+    padding: 0px;
+    width: 100px;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0;
+    padding: 2px;
+  }
+}
+
+
+
+.cdk-overlay-pane{
+  align-items: center !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100% !important;
+  padding: 25% !important;
+  }
+
+

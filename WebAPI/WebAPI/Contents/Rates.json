@@ -1,0 +1,20 @@
+{
+    "Rates": [
+        {
+            "RateName": "Normal",
+            "RateValue": "100",
+            "Description": ""
+        },
+        {
+            "RateName": "OT",
+            "RateValue": "150",
+            "Description": "Nhận 150% lương"
+        },
+        {
+            "RateName": "OT2",
+            "RateValue": "100",
+            "Description": "Nhận 100% lương + 1 ngày nghỉ phép"
+        }
+
+    ]
+}

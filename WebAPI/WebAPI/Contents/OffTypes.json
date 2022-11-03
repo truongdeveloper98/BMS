@@ -1,0 +1,16 @@
+﻿{
+  "OffTypes": [
+    {
+      "Name": "Nghỉ phép",
+      "Id": "0"
+    },
+    {
+      "Name": "Nghỉ không lương",
+      "Id": "1"
+    },
+    {
+      "Name": "Nghỉ đặc biệt",
+      "Id": "2"
+    }
+  ]
+}

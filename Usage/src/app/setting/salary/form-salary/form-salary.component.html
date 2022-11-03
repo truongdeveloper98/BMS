@@ -1,0 +1,57 @@
+<div class="bs_form-salary">
+    <mat-toolbar class="mb-3">
+      <span>{{salaryService.form.controls['id'].value?"Update Salary":"New Salary"}}</span>
+      <span class="fill-remaining-space"></span>
+      <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <form [formGroup]="salaryService.form" class="normal-form salary-form" (submit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input autocomplete="off" formControlName="effectiveDate" matInput  [matDatepicker]="date_picker"
+                      placeholder="Effective Date*">
+                    <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
+                    <mat-datepicker #date_picker></mat-datepicker>
+                    <mat-error>Invalid field is required.</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-12">
+                <mat-form-field>
+                    <input formControlName="hourlySalary" matInput placeholder="Hourly Salary*">
+                    <mat-error>Invalid field is required.</mat-error>
+                  </mat-form-field>
+            </div>
+            <div class="col-md-12">
+                <input type="hidden" formControlName="id">
+                <mat-label class="custom-label">List Members</mat-label>
+                <ng-select dropdownPosition="top" [items]="users" [multiple]="true" bindLabel="DisplayName" class="mb-2"
+                bindValue="Id" placeholder="Select items" formControlName="listMembers" [(ngModel)]="salaryService.selectedMemberIds">
+                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                    <div class="ng-value">
+                    <span class="ng-value-label"><img [src]="item.Avatar!=null?item.Avatar:'/assets/img/users.png'"
+                        width="20px" height="20px">
+                        {{item.DisplayName}}</span>
+                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </div>
+                </ng-template>
+
+                <ng-template ng-option-tmp let-item="item">
+                    <img [src]="item.Avatar!=null?item.Avatar:'/assets/img/users.png'" width="20px" height="20px">
+                    {{item.DisplayName}}
+                </ng-template>
+                </ng-select>
+            </div>
+        </div>
+      </form>
+      <div class="button-row float-end" style="position: sticky !important;
+        padding: 10px; bottom: 0px; background: white;
+        width: -webkit-fill-available;
+        text-align: right;">
+        <button mat-raised-button color="primary" class="btn-submit-project w-80" type="button" (click)="onSubmit()"
+            [disabled]="salaryService.form.invalid">Save</button>
+        <button mat-raised-button color="warn" class="w-80" type="button" (click)="onClose()">Cancel</button>
+      </div>
+  </div>

@@ -1,0 +1,67 @@
+<mat-toolbar>
+  <span *ngIf="other === 0">New Position</span>
+  <span *ngIf="other === 1">New Framework</span>
+  <button
+    class="btn-dialog-close"
+    mat-dialog-close
+    mat-stroked-button
+    tabIndex="-1"
+  >
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+<div class="ng-container bs_form-user">
+  <div class="col-12">
+    <form (submit)="saveChanges()" [formGroup]="form">
+      <div class="row" style="padding: 10px 0; margin: 0">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label *ngIf="other === 0">Position Name*</mat-label>
+            <mat-label *ngIf="other === 1">Framwork Name*</mat-label>
+            <input formControlName="name" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <div
+      class="col-12"
+      style="
+        position: sticky;
+        background: white;
+        bottom: 0px;
+        padding: 10px;
+        height: 56px;
+        z-index: 6;
+      "
+    >
+      <div
+        class="float-end"
+        style="
+          background: white;
+          width: -webkit-fill-available;
+          text-align: right;
+        "
+      >
+        <button
+          (click)="saveChanges()"
+          style="margin-right: 10px; width: 80px"
+          class="create"
+          mat-flat-button
+          color="primary"
+          [disabled]="form.invalid"
+        >
+          Save
+        </button>
+        <button
+          style="width: 80px"
+          class="create button"
+          color="warn"
+          mat-dialog-close
+          mat-flat-button
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

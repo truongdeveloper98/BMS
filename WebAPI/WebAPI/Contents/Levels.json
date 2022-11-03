@@ -1,0 +1,18 @@
+{
+    "Levels": [
+        { "LevelName": "Intern", "LevelType": "0" },
+        { "LevelName": "Fresher", "LevelType": "0" },
+        { "LevelName": "Junior", "LevelType": "0" },
+        { "LevelName": "Middle Senior", "LevelType": "0" },
+        { "LevelName": "Senior", "LevelType": "0" },
+        { "LevelName": "TechLead", "LevelType": "0" },
+        { "LevelName": "SA", "LevelType": "0" },
+
+        { "LevelName": "N1", "LevelType": "1" },
+        { "LevelName": "N2", "LevelType": "1" },
+        { "LevelName": "N3", "LevelType": "1" },
+        { "LevelName": "N4", "LevelType": "1" },
+
+        { "LevelName": "Other" }
+    ]
+}

@@ -1,0 +1,48 @@
+<div class="form-confirm">
+    <div class="col-md-12">
+        <div class="d-flex header">
+            <h2>{{title}}</h2>
+            <button class="btn-dialog-close" mat-dialog-close mat-stroked-button (click)="onClose()">
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+
+        <div class="p-3" *ngIf="dialogIndex === 1">
+            <h3 style="font-size: initial; margin-right: 130px">{{message}}</h3>
+            <div class="nut">
+
+                <button style="margin-right: 10px" class="create w-80" mat-raised-button color="primary"
+                    (click)="onOK()">{{labelOK}}</button>
+                <button class="w-80" mat-raised-button mat-stroked-button color="warn"
+                    (click)="onCancel()">{{labelCancel}}</button>
+            </div>
+        </div>
+
+        <div class="col-md-12" *ngIf="dialogIndex === 2">
+            <div class="p-3">
+                <h3 style="font-size: initial;">{{message2}}</h3>
+                <input *ngIf="inputtype === 'text'" class="form-control" [(ngModel)]="textresponse"
+                    style="font-size: initial; width: 100%; margin-bottom: 15px;" [(ngModel)]="request"/>
+                <div *ngIf="inputtype === 'date'">
+                    <form [formGroup]="dateForm">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Enter date</mat-label>
+                            <input [(ngModel)]="dateresponse" autocomplete="off" matInput [matDatepicker]="pendingpickerstart" formControlName="date"/>
+                            <mat-datepicker-toggle matSuffix [for]="pendingpickerstart"></mat-datepicker-toggle>
+                            <mat-datepicker #pendingpickerstart></mat-datepicker>
+                          </mat-form-field>
+                    </form>
+                    
+                </div>
+                <div class="nut">
+                    <button [disabled]="validateInput()" style="margin-right: 10px" class="create w-80" mat-raised-button color="primary"
+                        (click)="onReject()">{{labelCancel}}</button>
+                    <button class="w-80" mat-raised-button mat-stroked-button color="warn"
+                        (click)="onCancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

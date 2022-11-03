@@ -1,0 +1,216 @@
+<link href="../../../../css/icon-style.scss" />
+<div class="bs_list-user">
+  <div #myHeightHeader class="component_header d-flex h-32">
+    <div class="component_header-title h-32">
+      <div class="page-content-header col-12">
+        <div class="row breadcrumbs-top">
+          <div class="col-12">
+            <h2 class="content-header-title pr-1 mb-0">Members</h2>
+            <div class="breadcrumb-wrapper">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a
+                    routerLink="/admin/dashboard"
+                    class="router-link-active"
+                    target="_self"
+                    >Home</a
+                  >
+                </li>
+                <li class="breadcrumb-item active">
+                  <span aria-current="location"> List Members </span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="component_header-search h-32" style="justify-content: space-between">
+      <div>
+        <mat-icon class="h-32" (click)="openDialogRegister()">add</mat-icon>
+      </div>
+      <div class="h-32" style="width: 90%;">
+        <form [formGroup]="form" class="form-search-user h-32"  style="width: 85%">
+          <div class="row">
+            <div class="col-md-4">
+              <mat-form-field appearance="fill" class="h-32">
+                <mat-label>Select Department</mat-label>
+                <mat-select disableOptionCentering panelClass="dropbottom" formControlName="department" >
+                  <mat-option value="-1" selected>-- All --</mat-option>
+                  <mat-option *ngFor="let depart of Departments" [value]="depart.value">
+                    {{ depart.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-8">
+              <input type="text" class="form-control h-32" formControlName="search" placeholder="Search..."/>
+            </div> 
+          </div>
+        </form>
+      </div>
+      
+    </div>
+   
+  </div>
+
+  <div class="layout-list-member mat-elevation-z8">
+    <div
+      class="example-container"
+      style="max-height: calc(100vh - 185px); margin-top: 5px"
+    >
+      <ng-container content>
+        <table mat-table [dataSource]="dataSource" matSort class="table-index">
+          <ng-container matColumnDef="Email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="26%">
+              Email
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.Email }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="DisplayName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="24%">
+              DisplayName
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              title="{{ element.DisplayName }}"
+            >
+              {{ element.DisplayName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Role">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="108px">
+              Role
+            </th>
+            <td mat-cell *matCellDef="let element" width="108px">
+              {{ element.Role }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Position">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="18%">
+              Position
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.Info.Position }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="108px">Type</th>
+            <td mat-cell *matCellDef="let element" width="108px">
+              {{ userTypelist[element.Info.TypeId - 1].Name }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Departments">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header  width="108px">Department</th>
+            <td mat-cell *matCellDef="let element" width="108px">
+              <span *ngFor="let d of Departments">
+                <span *ngIf="element.Info.Department === d.value">{{
+                  d.name
+                }}</span>
+              </span>
+
+              <!-- <span *ngIf="element.Department === 1"> Division Faster </span> -->
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="start_date">
+            <th mat-header-cell *matHeaderCellDef width="108px">Start Date</th>
+            <td mat-cell *matCellDef="let element" width="108px">
+              {{ element.Start_Date | date: "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="end_date">
+            <th mat-header-cell *matHeaderCellDef width="108px">End Date</th>
+            <td mat-cell *matCellDef="let element" width="108px">
+              {{ element.End_Date | date: "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="isdeleted">
+            <th mat-header-cell *matHeaderCellDef width="90px">Status</th>
+            <td mat-cell *matCellDef="let element" width="90px">
+              <span
+                *ngIf="element.IsDeleted === false"
+                class="badge rounded-pill bg-success"
+                >Enabled</span
+              >
+              <span
+                *ngIf="element.IsDeleted === true"
+                class="badge rounded-pill bg-danger"
+                >Disabled</span
+              >
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions" stickyEnd>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              width="90px"
+              class="action-column"
+            >
+              <div class="border-column-sticky"></div>
+              Actions
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              class="action-column"
+              width="90px"
+            >
+              <div class="border-column-sticky"></div>
+              <mat-icon (click)="openDialog(element.Id)" color="primary"
+                >edit</mat-icon
+              >
+              <mat-icon
+                style="font-weight: bold"
+                (click)="
+                  blockUser(element.Id, !element.IsDeleted, element.Email)
+                "
+                color="warn"
+              >
+                power_settings_new
+              </mat-icon>
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="columnsToDisplay; sticky: true"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: columnsToDisplay"
+            [ngClass]="{
+              highlight: selectedItem === row,
+              disabled: row.IsDeleted === true
+            }"
+            (click)="selectedItem = row"
+          ></tr>
+          <tr class="mat-row" *matNoDataRow style="text-align: center">
+            <td class="mat-cell" colspan="7">No data.</td>
+          </tr>
+        </table>
+      </ng-container>
+    </div>
+    <mat-card
+      *ngIf="isLoading"
+      style="display: flex; justify-content: center; align-items: center"
+    >
+      <mat-spinner strokeWidth="3" [diameter]="50"></mat-spinner>
+    </mat-card>
+
+    <div>
+      <mat-paginator
+        [pageSizeOptions]="paginationService.selectItemsPerPage"
+        [length]="totalAmountOfRecords"
+        [pageSize]="paginationService.pageSize"
+        (page)="switchPage($event)"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>

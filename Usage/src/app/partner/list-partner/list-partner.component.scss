@@ -1,0 +1,111 @@
+.bs-my-report {
+  .component_header {
+    flex-direction: row;
+    align-items: center;
+
+    .component_header-search {
+      display: flex;
+      flex: 1;
+
+      mat-icon {
+        font-size: 30px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: bolder;
+        background: #ffffff;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        width: 50px;
+        margin-left: 5px;
+        height: 32px;
+        margin-top: 3px;
+
+        :hover {
+          background: rgb(175, 175, 175);
+        }
+      }
+    }
+  }
+
+  ::ng-deep .mat-tab-label .mat-tab-label-content {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  ::ng-deep mat-ink-bar {
+    display: none;
+  }
+
+  ::ng-deep.mat-tab-label.mat-tab-label-active {
+    color: #fff !important;
+    background-color: #3f51b5;
+    border: 1px solid #3f51b5;
+    opacity: 1;
+  }
+
+  .create-member {
+    margin-bottom: 10px;
+  }
+
+  ::ng-deep .mat-tab-label {
+    border-right: 2px solid white;
+    height: 32px;
+    background: #cccccc;
+    color: black !important;
+    font-size: 18px;
+    opacity: 1;
+  }
+
+  .mat-form-field {
+    width: 200px;
+    height: 50px;
+  }
+
+  .add a {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+  }
+
+  ::ng-deep .newreport {
+    font-size: 30px;
+  }
+
+  .table-header {
+    margin: 5px;
+    margin-left: 1200px;
+  }
+
+  .mat-header-row {
+    height: 36px !important;
+    text-align: center;
+  }
+
+  .mat-row,
+  .mat-footer-row {
+    height: 28px !important;
+  }
+
+  .create-member {
+    display: flex;
+    position: relative;
+  }
+
+  .nut {
+    position: absolute;
+    right: 210px;
+    top: 14px;
+  }
+
+  .find {
+    margin-left: 300px;
+    margin-top: 2px;
+  }
+
+  span.header {
+    margin-top: 20px;
+  }
+}

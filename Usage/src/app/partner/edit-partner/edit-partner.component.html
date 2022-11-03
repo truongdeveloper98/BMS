@@ -1,0 +1,26 @@
+<div class="bs_create-report">
+  <div class="close">
+    <mat-toolbar class="mb-3">
+      <span *ngIf="CheckCus === 0">Edit Partner</span>
+      <span *ngIf="CheckCus === 1">Edit Customer</span>
+      <span class="fill-remaining-space"></span>
+      <button
+        class="btn-dialog-close"
+        (click)="CloseDialog()"
+        mat-dialog-close
+        mat-stroked-button
+        tabIndex="-1"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+</div>
+
+<app-form-partner
+  *ngIf="models"
+  [CheckCus]="CheckCus"
+  [models]="models"
+  (onSaveChanges)="saveChanges($event)"
+>
+</app-form-partner>

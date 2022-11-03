@@ -1,0 +1,339 @@
+<div class="d-flex header h-32" #myHeightHeader>
+  <div class="d-flex h-32">
+    <div class="page-content-header col-12">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <h2 class="content-header-title pr-1 mb-0">Project</h2>
+          <div class="breadcrumb-wrapper">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a
+                  routerLink="/admin/dashboard"
+                  class="router-link-active"
+                  target="_self"
+                  >Home</a
+                >
+              </li>
+              <li class="breadcrumb-item active">
+                <span aria-current="location"> Manage Projects </span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="action h-32">
+    <mat-icon class="h-32" (click)="onCreate()" *ngIf="roleName === 'Manager' || roleName === 'SysAdmin'">add</mat-icon>
+    <form *ngIf="false" [formGroup]="formFilter" class="d-flex h-32">
+      <div class="col-sm-4 col-md-4 p-0 h-32">
+        <mat-form-field appearance="fill">
+          <mat-label>Status</mat-label>
+          <mat-select
+            disableOptionCentering
+            panelClass="dropbottom"
+            (selectionChange)="onFilter()"
+            formControlName="status"
+          >
+            <mat-option value="">All</mat-option>
+            <mat-option value="1">Disabled</mat-option>
+            <mat-option value="0">Enabled</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-4 col-md-4 p-0 h-32">
+        <mat-form-field appearance="fill">
+          <mat-label>Type</mat-label>
+          <mat-select
+            disableOptionCentering
+            panelClass="dropbottom"
+            (selectionChange)="onFilter()"
+            formControlName="projectType"
+          >
+            <mat-option value="">All</mat-option>
+            <mat-option
+              value="{{ pt.ProjectTypeId }}"
+              *ngFor="let pt of projectTypes"
+              >{{ pt.ProjectTypeName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-4 col-md-4 p-0 h-32">
+        <mat-form-field appearance="fill" style="padding-bottom: 0.4em">
+          <mat-label>Search</mat-label>
+          <input
+            (ngModelChange)="onFilter()"
+            style="
+              font-size: 13px;
+              vertical-align: text-top;
+              transform: translateY(-1px);
+            "
+            type="text"
+            matInput
+            formControlName="search"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              style="position: relative"
+              *ngFor="let p of projects"
+              [value]="p.Project_Name"
+            >
+              {{ p.Project_Name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </form>
+    <mat-icon class="h-32" (click)="onToggleFilter()">filter_list</mat-icon>
+    <!-- <button mat-raised-button *ngIf="roleName === 'Manager' || roleName === 'SysAdmin'" class="float-end btn-create-project"
+      style="margin-left: 5px;" (click)="onCreate()">
+      <mat-icon style="font-size:20px;">add</mat-icon>
+    </button> -->
+
+    <!-- <button mat-button (click)="onToggleFilter()" class="float-end p-0">
+      Filter
+    </button> -->
+  </div>
+</div>
+
+<div
+  class="project-filter shadow"
+  #myHeightFilter
+  [ngClass]="{ filterToggle: toggleFilter }"
+>
+  <mat-card>
+    <form [formGroup]="formFilter">
+      <div class="row mb-1">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput formControlName="search" placeholder="Search..." />
+          </mat-form-field>
+          <div class="row">
+            <div class="col-md-3">
+              <label id="example-radio-group-label">Project Status : </label>
+            </div>
+
+            <div class="col-md-9">
+              <mat-radio-group
+                aria-label="Select an option"
+                formControlName="status"
+              >
+                <mat-radio-button value="1">Disabled</mat-radio-button>
+                <mat-radio-button value="0">Enabled</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row" style="padding-top: 10px">
+            <div class="col-md-3">
+              <label id="example-radio-group-label">Project Type : </label>
+            </div>
+            <div class="col-md-9">
+              <mat-radio-group
+                aria-label="Select an option"
+                formControlName="project"
+              >
+                <mat-radio-button value="1">Partner</mat-radio-button>
+                <mat-radio-button value="0">Normal</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mt-3">
+            <div class="row">
+              <div class="col-md-3">
+                <label id="example-radio-group-label">Project Types : </label>
+              </div>
+              <div class="col-md-9">
+                <mat-radio-group
+                  aria-label="Select an option"
+                  formControlName="projectType"
+                >
+                  <mat-radio-button
+                    value="{{ pt.ProjectTypeId }}"
+                    *ngFor="let pt of projectTypes"
+                    >{{ pt.ProjectTypeName }}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <button
+              mat-raised-button
+              color="primary"
+              style="margin-right: 10px"
+              (click)="onFilter()"
+            >
+              Search
+            </button>
+            <button mat-raised-button type="reset" (click)="onReset()">
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
+<div
+  class="example-container mat-elevation-z8"
+  style="max-height: calc(100vh - 135px); margin-top: 5px"
+>
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="Project_Name">
+      <mat-header-cell
+        style="max-width: 600px"
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Name
+      </mat-header-cell>
+      <mat-cell style="max-width: 600px" *matCellDef="let element">
+        {{ element.Project_Name }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Project_Code">
+      <mat-header-cell
+        style="max-width: 200px"
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Project Code
+      </mat-header-cell>
+      <mat-cell style="max-width: 200px" *matCellDef="let element">
+        {{ element.Project_Code }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ProjectType_Name">
+      <mat-header-cell
+        style="max-width: 150px"
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Project Type
+      </mat-header-cell>
+      <mat-cell style="max-width: 150px" *matCellDef="let element">
+        {{ element.ProjectType_Name }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Description">
+      <mat-header-cell
+        style="min-width: 400px"
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Description
+      </mat-header-cell>
+      <mat-cell style="min-width: 400px" *matCellDef="let element">
+        {{ element.Description }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="StartDate">
+      <mat-header-cell class="day" *matHeaderCellDef mat-sort-header>
+        Start Date
+      </mat-header-cell>
+      <mat-cell class="day" *matCellDef="let element">
+        {{ element.StartDate | date: "dd/MM/yyyy" }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="EndDate">
+      <mat-header-cell class="day" *matHeaderCellDef mat-sort-header>
+        End Date
+      </mat-header-cell>
+      <mat-cell class="day" *matCellDef="let element">
+        {{ element.EndDate | date: "dd/MM/yyyy" }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'w-80'">
+        Status
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="'w-80'">
+        <span *ngIf="element.Status === 0" class="badge rounded-pill bg-success"
+          >Enabled</span
+        >
+        <span *ngIf="element.Status === 1" class="badge rounded-pill bg-danger"
+          >Disabled</span
+        >
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions" stickyEnd>
+      <mat-header-cell
+        *matHeaderCellDef
+        [ngClass]="'w-80'"
+        class="action-column"
+      >
+        <div class="border-column-sticky"></div>
+        Actions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" [ngClass]="'w-80'" class="action-column">
+        <div class="border-column-sticky"></div>
+        <mat-icon *ngIf="roleName === 'Manager' || roleName === 'SysAdmin' || row.IsProjectPM" (click)="onEdit(row.Id)" color="primary">edit</mat-icon>
+        <mat-icon
+          style="font-weight: bold"
+          (click)="changeStatus(row.Id, row.Status)"
+          *ngIf="roleName === 'Manager' || roleName === 'SysAdmin'"
+          color="warn"
+        >
+          power_settings_new
+        </mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="9">
+        Loading data ...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="9">
+        No Data.
+      </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row
+      *matHeaderRowDef="displayedColumns; sticky: true"
+    ></mat-header-row>
+    <mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [ngClass]="{
+        highlight: selectedItem === row,
+        disabled: row.Status === 1
+      }"
+      (click)="selectedItem = row"
+    >
+    </mat-row>
+
+    <mat-footer-row
+      *matFooterRowDef="['loading']"
+      [ngClass]="{ hide: dataSource != null }"
+    ></mat-footer-row>
+    <mat-footer-row
+      *matFooterRowDef="['noData']"
+      [ngClass]="{ hide: !(dataSource != null && dataSource.data.length == 0) }"
+    ></mat-footer-row>
+  </mat-table>
+  <mat-paginator
+    [length]="totalCount"
+    [pageSize]="paginationService.pageSize"
+    [pageSizeOptions]="paginationService.selectItemsPerPage"
+    (page)="switchPage($event)"
+    class="mat-paginator-sticky"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

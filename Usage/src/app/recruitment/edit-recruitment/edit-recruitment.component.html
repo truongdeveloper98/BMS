@@ -1,0 +1,19 @@
+<div class="bs_register-user">
+  <mat-toolbar>
+    <span>Edit ReCruitment</span>
+    <span class="fill-remaining-space"></span>
+    <button
+      class="btn-dialog-close"
+      mat-dialog-close
+      mat-stroked-button
+      tabIndex="-1"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <app-form-recruitment
+    *ngIf="model"
+    [models]="model"
+    (onSaveChanges)="saveChanges($event)"
+  ></app-form-recruitment>
+</div>

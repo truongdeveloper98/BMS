@@ -1,0 +1,568 @@
+<div class="dashboard" *ngIf="role != 'Partner'">
+  <div class="col-12 title d-flex">
+    <h2 class="header-title pr-1 mb-0">Dashboard</h2>
+    <div class="col-sm-4 col-md-4 p-0">
+      <form
+        *ngIf="role === 'Manager' || role === 'SysAdmin'"
+        [formGroup]="form"
+        class="manager-report-filter"
+      >
+        <mat-form-field class="date-picker" appearance="fill">
+          <mat-label>Select Period</mat-label>
+          <input matInput [matDatepicker]="dp" formControlName="month" />
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker
+            #dp
+            startView="year"
+            (yearSelected)="chosenYearHandler($event)"
+            (monthSelected)="chosenMonthHandler($event, dp)"
+            panelClass="example-month-picker"
+          >
+          </mat-datepicker>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+
+  <div class="card dashboard-body">
+    <div *ngIf="!statVisible" class="card-body">
+      <h3 style="text-align: center">
+        Hãy cùng nhau báo cáo công việc vào đây nhé!
+      </h3>
+    </div>
+
+    <div *ngIf="statVisible">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-10">
+            <h2 style="margin: 0px">Số lượng member đang chờ việc</h2>
+          </div>
+          <div class="col-2">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="ExportPendingMember()"
+            >
+              <mat-icon>file_download</mat-icon>Export
+            </button>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="row">
+            <div class="col-md-4">
+              <h3>
+                Tổng số member đang chờ việc:
+                <strong>{{ pendingList.Total }}</strong>
+              </h3>
+            </div>
+            <div
+              class="col-md-8"
+              (click)="pendingList.expand = !pendingList.expand"
+            >
+              <mat-icon
+                title="Click here to hide details"
+                class="center-vert action-cell"
+                *ngIf="!pendingList.expand"
+                style="font-weight: bold; font-size: 28px"
+                >expand_more</mat-icon
+              >
+              <mat-icon
+                title="Click here to view details"
+                class="center-vert action-cell"
+                *ngIf="pendingList.expand"
+                style="font-weight: bold; font-size: 28px"
+                >expand_less</mat-icon
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="pendingTable"
+        class="bd-1 row col-12"
+        style="margin: 0"
+        *ngIf="pendingList.expand"
+      >
+        <div>
+          <div class="row" id="pendingHeaderRow">
+            <div class="col-2 bd-1">
+              <h3 style="font-weight: bold" class="h32">Team</h3>
+            </div>
+
+            <div class="col-10">
+              <div>
+                <div class="row">
+                  <div class="col-3 bd-1">
+                    <h3 style="font-weight: bold" class="h32">Level</h3>
+                  </div>
+                  <div class="col-9">
+                    <div class="row">
+                      <div class="col-4 bd-1">
+                        <h3 style="font-weight: bold" class="h32">
+                          Member's name
+                        </h3>
+                      </div>
+                      <div class="col-3 bd-1">
+                        <h3 style="font-weight: bold" class="h32">
+                          Pending from
+                        </h3>
+                      </div>
+                      <div class="col-2 bd-1">
+                        <h3 style="font-weight: bold" class="h32">
+                          Effort Free
+                        </h3>
+                      </div>
+                      <div class="col-3 bd-1">
+                        <h3 style="font-weight: bold" class="h32">CV link</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let team of pendingList.Team" id="pendingBodyData">
+          <div class="row">
+            <div
+              class="col-2 bd-1 col-team"
+              (click)="team.expand = !team.expand"
+            >
+              <div class="row">
+                <div class="col-md-2" style="min-height: 30px">
+                  <mat-icon class="center-vert action-cell" *ngIf="team.expand"
+                    >expand_more</mat-icon
+                  >
+                  <mat-icon class="center-vert action-cell" *ngIf="!team.expand"
+                    >expand_less</mat-icon
+                  >
+                </div>
+                <!-- <mat-icon class="center-vert" [ngClass]="{'r-180': team.expand}">expand_more</mat-icon> -->
+                <div class="col-md-10" style="min-height: 30px">
+                  <h3 class="center-vert">
+                    {{ team.Team }} ({{ team.MemberCount }})
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-10 bd-1" *ngIf="team.expand">
+              <!-- <h3>Click expand icon to view details</h3> -->
+            </div>
+            <div class="col-10" *ngIf="!team.expand">
+              <div *ngFor="let level of team.Levels">
+                <div class="row">
+                  <div class="col-3 bd-1 col-team">
+                    <h3 class="center-vert h32">
+                      {{ level.Name }} ({{ level.Members.length }})
+                    </h3>
+                  </div>
+                  <div class="col-9">
+                    <div *ngFor="let mem of level.Members">
+                      <div class="row">
+                        <div class="col-4 bd-1">
+                          <h3 class="h32">{{ mem.DisplayName }}</h3>
+                        </div>
+                        <div class="col-3 bd-1" style="text-align: center">
+                          <h3 cla h32>
+                            {{ mem.PendingStart | date: "dd/MM/yyyy" }}
+                          </h3>
+                        </div>
+                        <div class="col-2 bd-1" style="text-align: center">
+                          <h3 class="h32">{{ mem.EffortFree }}%</h3>
+                        </div>
+                        <div
+                          class="col-3 bd-1"
+                          style="color: blue; text-decoration: underline"
+                          [ngClass]="{ pointer: mem.CVLink !== null }"
+                        >
+                          <h3 class="h32" (click)="viewCV(mem.CVLink)">
+                            {{ mem.CVLink }}
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Số giờ hoạt động trong tháng</h2>
+      <div class="col-md-12 d-flex">
+        <div style="width: 25%">
+          <div class="row h32">
+            <h3>Số giờ dự án Other</h3>
+          </div>
+          <div class="row h32">
+            <h3>Số giờ dự án</h3>
+          </div>
+          <div class="row h32">
+            <h3 style="padding-left: 40px">Working:</h3>
+          </div>
+          <div class="row h32">
+            <h3 style="padding-left: 40px">Overtime:</h3>
+          </div>
+          <div class="row h32">
+            <h3>Tổng số giờ hoạt động</h3>
+          </div>
+        </div>
+
+        <div style="width: 5%">
+          <div class="row h32">
+            <h3 style="text-align: right">
+              <strong>{{ workingHourStat.Other.Hour }}</strong>
+            </h3>
+          </div>
+          <div class="row h32">
+            <h3 style="text-align: right">
+              <strong>{{ workingHourStat.Project.Hour }}</strong>
+            </h3>
+          </div>
+          <div class="row h32">
+            <h3 style="text-align: right">
+              {{ workingHourStat.Project.Working.Hour }}
+            </h3>
+          </div>
+          <div class="row h32">
+            <h3 style="text-align: right">
+              {{ workingHourStat.Project.OT.Hour }}
+            </h3>
+          </div>
+          <div class="row h32">
+            <h3 style="text-align: right">
+              <strong>{{ workingHourStat.TotalHour }}</strong>
+            </h3>
+          </div>
+        </div>
+
+        <div style="width: 68%">
+          <div class="row h32">
+            <h3 class="percent">
+              <strong>{{ workingHourStat.Other.Percentage }}%</strong>
+            </h3>
+            <mat-progress-bar
+              color="warn"
+              mode="determinate"
+              value="{{ workingHourStat.Other.Percentage }}"
+            ></mat-progress-bar>
+          </div>
+          <div class="row h32">
+            <h3 class="percent">
+              <strong>{{ workingHourStat.Project.Percentage }}%</strong>
+            </h3>
+            <mat-progress-bar
+              color="gray"
+              mode="determinate"
+              value="{{ workingHourStat.Project.Percentage }}"
+            ></mat-progress-bar>
+          </div>
+          <div class="row h32"></div>
+          <div class="row h32"></div>
+          <div class="row h32">
+            <h3 class="percent"></h3>
+            <mat-progress-bar
+              color="gray"
+              mode="determinate"
+              value="100"
+            ></mat-progress-bar>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6" id="memberView">
+            <h2 class="w50">Nhân sự</h2>
+            <div class="col-md-12 d-flex">
+              <div class="row">
+                <div class="md-3">
+                  <div class="row h32">
+                    <h3>
+                      Tổng nhân sự sản xuất:
+                      <strong>{{ memberChart.Total }}</strong>
+                    </h3>
+                  </div>
+                  <div class="row h32">
+                    <h3 style="padding-left: 40px">
+                      BeetSoft: {{ memberChart.BeetSoft }}
+                    </h3>
+                  </div>
+                  <div class="row h32">
+                    <h3 style="padding-left: 40px">
+                      Partner: {{ memberChart.Partner }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <canvas
+              baseChart
+              width="2"
+              height="1"
+              style="max-width: 500px; max-height: 250px; margin: auto"
+              [data]="memberChart.Data"
+              [labels]="memberChart.Labels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend"
+              [colors]="chartColors"
+            >
+            </canvas>
+            <canvas
+              baseChart
+              width="2"
+              height="1"
+              style="max-width: 500px; max-height: 250px; margin: auto"
+              [data]="deparmentChart.Data"
+              [labels]="deparmentChart.Labels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend"
+              [colors]="chartColors"
+            >
+            </canvas>
+            <canvas
+              baseChart
+              width="2"
+              height="1"
+              style="max-width: 500px; max-height: 250px; margin: auto"
+              [data]="contractChart.Data"
+              [labels]="contractChart.Labels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend"
+              [colors]="chartColors"
+            >
+            </canvas>
+          </div>
+
+          <div class="col-6" id="projectView">
+            <h2 class="w50">Dự án</h2>
+            <div class="col-md-12 d-flex">
+              <div class="row">
+                <div class="md-3">
+                  <div class="row h32">
+                    <h3>
+                      Số Dự án đang chạy:
+                      <strong>{{ projectChart.Total }}</strong>
+                    </h3>
+                  </div>
+                  <div class="row h32"></div>
+                  <div class="row h32"></div>
+                </div>
+              </div>
+            </div>
+            <canvas
+              baseChart
+              width="2"
+              height="1"
+              style="max-width: 500px; max-height: 250px; margin: auto"
+              [data]="projectChart.Data"
+              [labels]="projectChart.Labels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend"
+              [colors]="chartColors"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="w50" style="width: 200px !important">Tin tuyển dụng</h2>
+      <div style="margin-top: 10px">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" style="width: 80px !important">Position</th>
+              <th scope="col" style="width: 80px !important">Framework</th>
+              <th scope="col" style="width: 80px !important">Language</th>
+              <th scope="col" style="width: 100px !important">DateOnBoard</th>
+              <th scope="col" style="width: 100px !important">DatePublish</th>
+              <th scope="col" style="width: 50px">Quantity</th>
+              <th scope="col" style="width: 150px">Description</th>
+              <th scope="col" style="width: 50px">Status</th>
+              <th scope="col" style="width: 50px">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mem of recruitments">
+              <td>{{ mem.PositionName }}</td>
+              <td>{{ mem.FrameworkName }}</td>
+              <td>{{ mem.LanguageName }}</td>
+              <td>{{ mem.DateOnBroad | date: "dd/MM/yyyy" }}</td>
+              <td>{{ mem.DatePublish | date: "dd/MM/yyyy" }}</td>
+              <td>{{ mem.Quantity }}</td>
+              <td>{{ mem.Description }}</td>
+              <td>
+                {{
+                  mem.Status === 0
+                    ? "Todo"
+                    : mem.Status === 1
+                    ? "Doing"
+                    : mem.Status === 2
+                    ? "Done"
+                    : "Cancel"
+                }}
+              </td>
+              <td>{{ mem.Result === 0 ? "OK" : "NG" }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6" id="memberView">
+            <div class="col-md-12 d-flex">
+              <div class="row">
+                <div class="md-3">
+                  <h3>
+                    Tổng số tin tuyển dụng: {{ statusRecruitmentChart.Total }}
+                  </h3>
+                  <div class="row h32">
+                    <h3>
+                      Tuyển dụng theo status: {{ countRecruitmentStatus }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <canvas
+              baseChart
+              width="2"
+              height="1"
+              style="max-width: 500px; max-height: 250px; margin: auto"
+              [data]="statusRecruitmentChart.Data"
+              [labels]="statusRecruitmentChart.Labels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend"
+              [colors]="chartColors"
+            >
+            </canvas>
+            <!-- <canvas
+              baseChart
+              width="2"
+              height="1"
+              style="max-width: 500px; max-height: 250px; margin: auto"
+              [data]="deparmentChart.Data"
+              [labels]="deparmentChart.Labels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend"
+              [colors]="chartColors"
+            >
+            </canvas> -->
+          </div>
+          <div class="col-6" id="memberView">
+            <div class="col-md-12 d-flex">
+              <div class="row">
+                <div class="md-3">
+                  <div class="row h32"></div>
+                  <div class="row h32">
+                    <h3 style="padding-left: 40px; padding-top: 10px">
+                      Tuyển dụng theo vị trí: {{ countRecruitmentPos }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <canvas
+              baseChart
+              width="2"
+              height="1"
+              style="max-width: 500px; max-height: 250px; margin: auto"
+              [data]="statusRecruitmentPosChart.Data"
+              [labels]="statusRecruitmentPosChart.Labels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend"
+              [colors]="chartColors"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12" style="margin-top: 15px">
+        <h2>Member onboard</h2>
+      </div>
+      <div class="col-12">
+        <h3>
+          Tổng số member onboard: <strong>{{ onboardList.length }}</strong>
+        </h3>
+      </div>
+      <div id="onboardTable" class="bd-1 row col-12" style="margin: 0">
+        <div>
+          <div class="row" id="onboardHeaderRow">
+            <div class="col-3 bd-1">
+              <h3 style="font-weight: bold" class="h32">FullName</h3>
+            </div>
+            <div class="col-2 bd-1">
+              <h3 style="font-weight: bold" class="h32">Position</h3>
+            </div>
+            <div class="col-2 bd-1">
+              <h3 style="font-weight: bold" class="h32">Level</h3>
+            </div>
+            <div class="col-3 bd-1">
+              <h3 style="font-weight: bold" class="h32">Language</h3>
+            </div>
+            <div class="col-2 bd-1">
+              <h3 style="font-weight: bold" class="h32">Onboard Date</h3>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let member of onboardList">
+          <div class="row" id="onboardBodyRow">
+            <div class="col-3 bd-1">
+              <h3 class="h32">{{ member.FullName }}</h3>
+            </div>
+            <div class="col-2 bd-1">
+              <ng-template ngFor let-i [ngForOf]="Positions">
+                <h3 class="h32" *ngIf="member.Position === i.value">
+                  {{ i.name }}
+                </h3>
+              </ng-template>
+            </div>
+            <div class="col-2 bd-1">
+              <ng-template ngFor let-i [ngForOf]="Levels">
+                <h3 class="h32" *ngIf="member.Level === i.value">
+                  {{ i.name }}
+                </h3>
+              </ng-template>
+            </div>
+            <div class="col-3 bd-1">
+              <h3 class="h32">{{ member.Language }}</h3>
+            </div>
+            <div class="col-2 bd-1">
+              <h3 class="h32">{{ member.OnboardDate | date: "dd/MM/yyyy" }}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <canvas
+        baseChart
+        width="2"
+        height="1"
+        style="max-width: 500px; max-height: 250px; margin-top: 10px"
+        [data]="memberOnboardChart.Data"
+        [labels]="memberOnboardChart.Labels"
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend"
+        [colors]="chartColors"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>

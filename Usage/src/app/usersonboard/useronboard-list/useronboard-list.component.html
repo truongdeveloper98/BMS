@@ -1,0 +1,143 @@
+<div class="bs_list-useronboard">
+    <div #myHeightHeader class="component_header d-flex h-32">
+      <div class="component_header-title h-32">
+        <div class="page-content-header col-12">
+          <div class="row breadcrumbs-top">
+            <div class="col-12">
+              <h2 class="content-header-title pr-1 mb-0">Members</h2>
+              <div class="breadcrumb-wrapper">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a
+                      routerLink="/admin/dashboard"
+                      class="router-link-active"
+                      target="_self"
+                      >Home</a
+                    >
+                  </li>
+                  <li class="breadcrumb-item active">
+                    <span aria-current="location"> List Members Onboard </span>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="component_header-search h-32"
+        style="justify-content: space-between"
+      >
+        <div>
+          <mat-icon class="h-32" (click)="onCreate()">add</mat-icon>
+        </div>
+        <div class="h-32" style="width: 26vw">
+          <form
+            [formGroup]="formFilter"
+            class="form-search-user h-32"
+            style="width: 100%"
+          >
+            <div>
+              <input
+                type="text"
+                class="form-control h-32"
+                formControlName="search"
+                placeholder="Search by fullname or language..."
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <div class="layout-list-memberonboard mat-elevation-z8">
+      <div class="example-container" style="max-height: calc(100vh - 185px); margin-top: 5px;">
+        <ng-container content>
+          <table mat-table [dataSource]="usersonboard" class="table-index">
+            <ng-container matColumnDef="fullname">
+              <th mat-header-cell *matHeaderCellDef width="20%">FullName</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.FullName }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef width="15%">Position</th>
+              <td mat-cell *matCellDef="let element" title={{element.Position}}>
+                <span *ngFor="let p of positions">
+                  <span *ngIf="element.Position === p.value">{{
+                    p.name
+                  }}</span>
+                </span>
+              </td>
+            </ng-container>            
+            <ng-container matColumnDef="level">
+              <th mat-header-cell *matHeaderCellDef width="15%">Level</th>
+              <td mat-cell *matCellDef="let element">
+                <span *ngFor="let l of levels">
+                  <span *ngIf="element.Level === l.value">{{
+                    l.name
+                  }}</span>
+                </span>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="language">
+              <th mat-header-cell *matHeaderCellDef  width="15%">Language</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.Language }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="onboarddate">
+              <th mat-header-cell *matHeaderCellDef width="108px">Onboard Date</th>
+              <td mat-cell *matCellDef="let element" width="108px">
+                {{ element.OnboardDate | date: "dd/MM/yyyy" }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="isdeleted">
+              <th mat-header-cell *matHeaderCellDef width="90px">Status</th>
+              <td mat-cell *matCellDef="let element" width="90px">
+                <span *ngIf="element.IsDeleted === false" class="badge rounded-pill bg-success">Enabled</span>
+                <span *ngIf="element.IsDeleted === true" class="badge rounded-pill bg-danger">Disabled</span>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="actions" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef width="90px" class="action-column">
+                <div class="border-column-sticky"></div>
+                Actions
+              </th>
+              <td mat-cell *matCellDef="let element" class="action-column" width="90px">
+                <div class="border-column-sticky"></div>
+                <mat-icon (click)="onEdit(element.Id)" color="primary">edit</mat-icon>
+                <mat-icon style="font-weight: bold;" (click)="changeUserOnboardStatus(element.Id, element.IsDeleted)" color="warn">
+                  power_settings_new
+                </mat-icon>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay" [ngClass]="{'highlight': selectedItem === row, 'disabled': row.IsDeleted === true}"
+              (click)="selectedItem = row"></tr>
+            <tr class="mat-row" *matNoDataRow style="text-align: center">
+              <td class="mat-cell" colspan="7">No data.</td>
+            </tr>
+          </table>
+        </ng-container>
+      </div>
+      <mat-card
+        *ngIf="isLoading"
+        style="display: flex; justify-content: center; align-items: center"
+      >
+        <mat-spinner strokeWidth="3" [diameter]="50"></mat-spinner>
+      </mat-card>
+  
+      <div>
+        <mat-paginator
+          [pageSizeOptions]="paginationService.selectItemsPerPage"
+          [length]="totalAmountOfRecords"
+          [pageSize]="paginationService.pageSize"
+          (page)="switchPage($event)"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>

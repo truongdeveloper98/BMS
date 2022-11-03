@@ -1,0 +1,9 @@
+<app-menu-left [childMessage]="siderbarOpen" (toggleSidebarMenuLeft)="toggleSidebarMenuLeft()"></app-menu-left>
+<section class="home-section" [ngClass]="{ 'sliderbarToggleMain': siderbarOpen }">
+    <app-header (toggleSidebarForMe)="siderbarToggler($event)" [events]="eventsSubject.asObservable()"></app-header>
+    <!-- <div class="header-navbar-shadow"></div> -->
+    <div class="component-master">
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer style="position: absolute; bottom: 0; width: 100%;"></app-footer>
+</section>

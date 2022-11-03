@@ -1,0 +1,31 @@
+<div class="edit-user">
+  <mat-toolbar
+    style="
+      z-index: 5;
+      position: sticky !important;
+      top: 0px;
+      background: #3f51b5;
+    "
+  >
+    <span>Update User</span>
+    <span class="fill-remaining-space"></span>
+    <button
+      class="btn-dialog-close"
+      mat-dialog-close
+      mat-stroked-button
+      tabIndex="-1"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <app-form-users
+    *ngIf="models"
+    [departments]="Departments"
+    [update]="true"
+    [models]="models"
+    [roles]="roles"
+    [types]="types"
+    [update]="update"
+    (onSaveChanges)="saveChanges($event)"
+  ></app-form-users>
+</div>

@@ -1,0 +1,180 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f8f8f8;
+}
+
+.card {
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  transition: all 0.3s ease-in-out, background 0s, color 0s, border-color 0s;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid rgba(34, 41, 47, 0.125);
+  border-radius: 0.428rem;
+}
+.table-index {
+  width: 1200px;
+}
+.table-index a {
+  margin-right: 1rem;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-table {
+  border-spacing: 0;
+  width: 100%;
+}
+
+.mat-header-row {
+  height: 35px !important;
+}
+
+.mat-row,
+.mat-footer-row {
+  height: 28px !important;
+}
+
+.mat-header-cell {
+  text-align: left;
+  font-size: medium !important;
+  color: #212529;
+}
+
+// .mat-header-cell, .mat-cell, .mat-footer-cell {
+//   padding: 0;
+//   border-bottom-width: 1px;
+//   border-bottom-style: solid;
+// }
+
+.mat-header-cell:first-child,
+.mat-cell:first-child,
+.mat-footer-cell:first-child {
+  padding-left: 15px;
+}
+
+.mat-header-cell:last-child,
+.mat-cell:last-child,
+.mat-footer-cell:last-child {
+  padding-right: 24px;
+}
+
+.mat-paginator-sticky {
+  bottom: 0;
+  position: sticky;
+  z-index: 10;
+  left: 0;
+}
+
+.hide {
+  display: none;
+}
+
+a {
+  cursor: pointer;
+}
+
+.snackbar-success {
+  background-color: #51a351;
+  width: 100px !important;
+}
+
+.snackbar-error {
+  background-color: #bd362f;
+}
+
+.snackbar-info {
+  background-color: #2f96b4;
+}
+
+.snackbar-Warning {
+  background-color: #f89406;
+}
+
+.mat-dialog-container {
+  padding: 0px !important;
+}
+
+.page-content-header {
+  .content-header-title {
+    float: left;
+    border-right: 1px solid #d6dce1;
+    font-weight: 500;
+    color: #636363;
+    padding-right: 1rem !important;
+    font-family: Montserrat;
+    font-size: 23.996px;
+    letter-spacing: 0.14px;
+    line-height: 28.7952px;
+    text-align: left;
+  }
+
+  .breadcrumb-wrapper{
+    float:left;
+
+    .breadcrumb {
+      padding: 0.3rem 1rem;
+      margin-bottom: 0;
+      background-color: transparent;
+      border-radius: 0;
+  
+      span{
+        color: #6e6b7b;
+        font-size: 14px;
+        letter-spacing: 0.14px;
+        line-height: 20.3px;
+        text-align: left;
+      }
+      a {
+        color: #7367f0;
+        text-decoration: none;
+  
+        @extend span;
+      }
+      
+      &:not([class*=breadcrumb-]) .breadcrumb-item+.breadcrumb-item:before {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236e6b7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-right'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: 14px;
+        margin-right: 5px;
+        content: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236e6b7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-right'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E");
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .page-content-header{
+    .breadcrumb-wrapper{
+      display: none;
+    }
+  }
+}
+
+.dropbottom{
+  margin-top: 21px !important;
+  margin-left: 6px !important;
+}

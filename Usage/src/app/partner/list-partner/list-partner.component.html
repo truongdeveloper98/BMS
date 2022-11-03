@@ -1,0 +1,104 @@
+<div class="bs-my-report">
+  <div class="component_header d-flex h-32">
+    <div class="component_header-title h-32">
+      <div class="page-content-header col-12">
+        <div class="row breadcrumbs-top">
+          <div class="col-12">
+            <h2 class="content-header-title pr-1 mb-0">Partners</h2>
+            <div class="breadcrumb-wrapper">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a
+                    routerLink="/admin/dashboard"
+                    class="router-link-active"
+                    target="_self"
+                    >Home</a
+                  >
+                </li>
+                <li class="breadcrumb-item active">
+                  <span aria-current="location"> Manager Partner </span>
+                </li>
+                <li class="breadcrumb-item active">
+                  <span aria-current="location">
+                    {{ tabSelected === 0 ? "Partner" : "Customer" }}
+                  </span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="component_header-search h-32"
+      style="justify-content: space-between"
+    >
+      <div class="d-flex">
+        <mat-icon class="h-32" mat-raised-button (click)="CreatePartner()"
+          >add</mat-icon
+        >
+      </div>
+      <div style="width: 26vw">
+        <form
+          [formGroup]="form"
+          class="form-search-user h-32"
+          style="width: 100%"
+        >
+          <div>
+            <input
+              type="text"
+              class="form-control h-32"
+              formControlName="search"
+              placeholder="Search..."
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <mat-tab-group
+    [@.disabled]="true"
+    color="accent"
+    mat-stretch-tabs
+    class="example-stretched-tabs mat-elevation-z4"
+    mat-align-tabs="center"
+    backgroundColor="primary"
+    (selectedIndexChange)="onTabClick($event)"
+    [selectedIndex]="tabSelected"
+    style="max-height: calc(100vh - 135px); margin-top: 5px"
+  >
+    <mat-tab label="List Partner">
+      <app-list-partner-cus
+        [checkCus]="0"
+        [dataSource]="partners"
+        (onUpdate)="update($event)"
+      ></app-list-partner-cus>
+      <mat-paginator
+        [pageSizeOptions]="paginationService.selectItemsPerPage"
+        [length]="totalAmountOfPartnerRecords"
+        [pageSize]="paginationService.pageSize"
+        (page)="switchPage($event)"
+        class="mat-elevation-z8 mat-paginator-sticky"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </mat-tab>
+    <mat-tab label="List Customer">
+      <app-list-partner-cus
+        [checkCus]="1"
+        [dataSource]="partners"
+        (onUpdate)="update($event)"
+      ></app-list-partner-cus>
+      <mat-paginator
+        [pageSizeOptions]="paginationService.selectItemsPerPage"
+        [length]="totalAmountOfCustomerRecords"
+        [pageSize]="paginationService.pageSize"
+        (page)="switchPage($event)"
+        class="mat-elevation-z8 mat-paginator-sticky"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </mat-tab>
+  </mat-tab-group>
+</div>

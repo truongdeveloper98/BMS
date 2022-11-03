@@ -1,0 +1,236 @@
+input.form-control,
+input.form-control:focus {
+  background-color: #ffffff;
+  background-size: 16.282px 16.282px;
+  border-radius: 4.998px;
+  border-style: solid;
+  border-width: 1px;
+  color: #6e6b7b;
+  font-family: Montserrat;
+  font-size: 14px;
+  line-height: 20.3px;
+  padding: 6.132px 32.564px 6.132px 14px;
+  ;
+}
+
+.forgot-title {
+  color: #5e50ee;
+  display: inline;
+  font-family: Montserrat;
+  letter-spacing: 0.14px;
+  line-height: 17.3971px;
+  text-align: left;
+  text-decoration: none;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.custom-checkbox.custom-control {
+  padding-left: 1.8rem;
+
+  .custom-control-label {
+    margin-top: 6px;
+  }
+}
+
+.btn-google {
+  background-color: #dd4b39;
+  border-color: #fff;
+  border: none;
+  color: #fff;
+}
+
+.custom-control {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: 1.45rem;
+  -webkit-print-color-adjust: exact;
+}
+
+.custom-checkbox .custom-control-input {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.brand-logo {
+  // display: flex;
+  text-align: center;
+  justify-content: center;
+  margin: 1.5rem 0 2rem 0;
+  text-decoration: none;
+
+  img {
+    width: 45px;
+  }
+
+  h2.brand-text {
+    color: #00adee !important;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.14px;
+    line-height: 28.7952px;
+    margin: 10px 0px;
+    text-align: center;
+  }
+}
+
+.divider {
+  text-align: center;
+  margin: 1rem 0;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+
+  .divider-text {
+    padding: 0 1rem;
+    position: relative;
+    display: inline-block;
+    font-size: .9375rem;
+    color: #6e6b7b;
+
+    &:before {
+      right: 100%;
+      border-top: 1px solid #ebe9f1;
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 9999px;
+
+    }
+
+    &:after {
+      left: 100%;
+      border-top: 1px solid #ebe9f1;
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 9999px;
+
+    }
+  }
+}
+
+input.form-control:focus {
+  box-shadow: none;
+}
+
+
+button[type=submit].btn {
+  border-radius: 0.358rem;
+  color: #fff;
+  border: 1px solid #00adee;
+  background-color: #00adee !important;
+  // opacity: .65;
+}
+
+div.form-group label:not(.text-danger) {
+  color: #5e5873;
+  font-family: Montserrat;
+  font-size: 12.998px;
+  letter-spacing: 0.14px;
+  line-height: 17.3971px;
+  margin: 0px 0px 3.9998px;
+  text-align: left;
+}
+
+div.form-group.required>label:first-child:after {
+  content: '*';
+  color: #fff;
+  padding-left: 5px;
+}
+
+#toast-container>div {
+  opacity: 1;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  // padding: 20px;
+}
+
+.wrapped-div {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: #fff;
+  // background-image: linear-gradient(315deg, #734ae8 0%, #89d4cf 74%);
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+  padding: 0px;
+}
+
+.wrapped-div .card-title {
+
+  color: #5e5873;
+  font-family: Montserrat;
+  font-size: 17.99px;
+  font-weight: 500;
+  letter-spacing: 0.14px;
+  line-height: 21.588px;
+  margin: 0px 0px 14px;
+  text-align: left;
+
+}
+
+.auth-footer-btn {
+  margin-bottom: 30px;
+  margin-top: 0px;
+}
+
+.wrapped-div .card-text {
+  color: #6e6b7b;
+  font-family: Montserrat;
+  font-size: 14px;
+  letter-spacing: 0.14px;
+  line-height: 21px;
+  margin: 0px 0px 21px;
+  text-align: left;
+}
+
+/* Tabs */
+.tab-header {
+  text-align: center;
+}
+
+.tab-header h2.active {
+  color: #fff;
+  border-bottom: 4px solid #fff;
+}
+
+.tab-header h2 {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  display: inline-block;
+  padding: 30px 40px 10px 40px;
+  cursor: pointer;
+  color: #545d6a;
+  border-bottom: 2px solid #545d6a;
+}
+
+.tab-header h2:focus {
+  outline: none;
+}
+
+form {
+  //margin-top: 1.5rem;
+}
+
+div.form-group input.invalid {
+  border: 1px solid #dc3545;
+}

@@ -1,0 +1,26 @@
+<div id="bs_header" >
+  <nav class="navbar navbar-light bg-white navbar-header" [ngClass]="{ sliderbarToggleMain: siderbarStatus }">
+    <div class="container-fluid">
+      <span class="navbar-brand">
+        <mat-icon [ngClass]="{ menu_rotate: siderbarStatus }" (click)="toggleSidebar()">menu_open</mat-icon>
+      </span>
+      <div class="profile-details d-flex">
+        <div class="name-job">
+          <div class="profile_name">
+            <a routerLink="/admin/account-settings">
+              {{DisplayName}}
+            </a>
+          </div>
+          <div class="job">{{roleName}}</div>
+        </div>
+        <div class="profile-content">
+          <a routerLink="/admin/account-settings">
+            <img src="{{Avatar}}" alt="avatar" />
+          </a>
+        </div>
+        <mat-icon id="signout"(click)="onLogout()" >power_settings_new</mat-icon>
+      </div>
+    </div>
+  </nav>
+  <div class="sidenav-overlay" [ngClass]="{ show: siderbarStatus }" (click)="toggleSidebarOverlay()"></div>
+</div>
